@@ -1,6 +1,6 @@
 {
   "name": "coppersmith",
-  "version": "0.1.0",
+  "version": "0.1.0-beta",
   "description": "Simple static documentation builder using markdown",
   "main": "cs/index.js",
   "scripts": {
