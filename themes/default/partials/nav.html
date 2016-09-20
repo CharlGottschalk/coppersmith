@@ -1,0 +1,24 @@
+<div class="ui left fixed vertical menu">
+	{{#each collections}}
+	{{#is @key '===' 'root'}}
+	<div class="item">
+		<div class="menu">
+			{{#each this}}
+			<a class="item">
+				{{title}}
+			</a>
+			{{/each}}
+		</div>
+	</div>
+	{{else}}
+	<div class="item">
+		<div class="header">{{titleCase @key}}</div>
+		<div class="menu">
+			{{#each this}}
+			<a class="item">{{title}}</a>
+			{{/each}}
+		</div>
+	</div>
+	{{/is}}
+	{{/each}}
+</div>
