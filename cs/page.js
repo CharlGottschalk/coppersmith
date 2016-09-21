@@ -1,3 +1,4 @@
+/* jshint node: true */
 'use strict';
 
 var inquirer = require('inquirer'),
@@ -83,6 +84,8 @@ function loadCollections() {
 }
 
 function askTitle() {
+	helper.log.dark('CopperSmith: Page');
+	helper.log.info('Please answer the following questions:');
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
 			title: helper.titleCase(answers.title),
@@ -95,7 +98,6 @@ function askTitle() {
 			snippets: [],
 			route: '',
 			version: '0.1.0',
-			author: '',
 			paths: {}
 		};
 		chooseCollection(args);
@@ -163,7 +165,7 @@ function askSnippetName(args) {
 	});
 }
 
-function askAnother(args) {
+function askAnother() {
 	inquirer.prompt(questions.another).then(function(answers) {
 		if (answers.another){
 			askTitle();
@@ -191,19 +193,19 @@ function save(args) {
 	var paths = getPaths(args),
 		file = path.join(paths.page, args.slug + '.md'),
         docStub = helper.getStub('doc.md'),
-        content = helper.format(docStub, args);
-    console.log(args);
+        content = helper.format(docStub, args),
+        exists = false;
     args.paths = paths;
     pages.push(args);
     try {
-		var exists = fs.statSync(paths.collection);
+		exists = fs.statSync(paths.collection);
 	} catch(e) {
 		fs.mkdirSync(paths.collection);
 	}
     fs.mkdirSync(paths.page);
     fs.writeFile(file, content, function(err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
     });
     if (args.snippets.length) {
@@ -213,21 +215,19 @@ function save(args) {
     	fs.mkdirSync(paths.snips);
         while (i--) {
         	snip = path.join(paths.snips, args.snippets[i] + '.html');
-            fs.writeFile(snip, snipStub, function(err) {
-	            if (err) {
-	                return console.log(err);
-	            }
-	        });
+            fs.writeFile(snip, snipStub);
         }
     }
+    helper.log.dark(args.title + ' created!');
     askAnother();
 }
 
 function complete() {
 	var i = pages.length;
-	console.log('The following pages were created:');
+	helper.log.success('CopperSmith: Complete!');
+	helper.log.info('The following pages were created:');
 	while(i--) {
-		console.log(pages[i].title + ' at ' + pages[i].paths.page);
+		helper.log.mag('  > ' + pages[i].title + ' at ' + pages[i].paths.page);
 	}
 }
 

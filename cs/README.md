@@ -5,7 +5,7 @@ This directory contains the terminal commands used to setup and extend your docu
 In your terminal:
 
 ```
-$ copper / copper init
+$ copper init
 ```
 ###### Answer the questions to setup CopperSmith.
 
@@ -22,4 +22,4 @@ $ copper snip
 ```
 $ copper build
 ```
-###### Generates the static site.
+###### Generate the static site.

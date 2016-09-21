@@ -134,7 +134,6 @@ Generate your static site into your chosen build folder.
     
 ## To Do:
 
-* Add linting
 * Add tests
 * Finish default theme
 * Finish theming

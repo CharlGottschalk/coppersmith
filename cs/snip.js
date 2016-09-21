@@ -1,3 +1,4 @@
+/* jshint node: true */
 'use strict';
 
 var inquirer = require('inquirer'),
@@ -68,6 +69,8 @@ function loadPages(args) {
 }
 
 function askTitle() {
+	helper.log.dark('CopperSmith: Snippet');
+	helper.log.info('Please answer the following questions:');
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
 			slug: slugify(answers.title),
@@ -91,14 +94,13 @@ function chooseCollection(args) {
 }
 
 function choosePage(args) {
-	console.log('loadPages 3');
 	inquirer.prompt(questions.page).then(function(answers) {
 		args.page = answers.page;
 		save(args);
 	});
 }
 
-function askAnother(args) {
+function askAnother() {
 	inquirer.prompt(questions.another).then(function(answers) {
 		if (answers.another){
 			askTitle();
@@ -126,28 +128,30 @@ function getPaths(args) {
 function save(args) {
 	var paths = getPaths(args),
 		file = path.join(paths.snippet, args.slug + '.html'),
-        snipStub = helper.getStub('snippet.html');
+        snipStub = helper.getStub('snippet.html'),
+        exists = false;
     try {
-		var exists = fs.statSync(paths.snippet);
+		exists = fs.statSync(paths.snippet);
 	} catch(e) {
 		fs.mkdirSync(paths.snippet);
 	}
     fs.writeFile(file, snipStub, function(err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
     });
     args.paths = paths;
     snippets.push(args);
-    console.log(args.slug + ' created!');
+    helper.log.dark(args.slug + ' created!');
     askAnother();
 }
 
 function complete() {
 	var i = snippets.length;
-	console.log('The following snippets were created:');
+	helper.log.success('CopperSmith: Complete!');
+	helper.log.info('The following snippets were created:');
 	while(i--) {
-		console.log(snippets[i].slug + ' at ' + snippets[i].paths.snippet);
+		helper.log.mag('  > ' + snippets[i].title + ' at ' + snippets[i].paths.page);
 	}
 }
 

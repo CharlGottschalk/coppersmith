@@ -1,3 +1,4 @@
+/* jshint node: true */
 'use strict';
 
 var inquirer = require('inquirer'),
@@ -32,6 +33,8 @@ var questions = {
 	};
 
 function askSource() {
+	helper.log.dark('CopperSmith: Initialize');
+	helper.log.info('Please answer the following questions:');
 	inquirer.prompt(questions.source).then(function(answers) {
 		var args = {
 			sourcePath: slugify(answers.source),
@@ -75,16 +78,16 @@ function save(args) {
 
     fs.writeFile(indexPath, content, function(err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
     });
 
     fs.writeFile(config, JSON.stringify(args, null, 2), function(err) {
         if (err) {
-            return console.log(err);
+            throw err;
         }
     });
-    console.log('CopperSmith initialized!');
+    helper.log.success('CopperSmith: Initialized!');
 }
 
 askSource();

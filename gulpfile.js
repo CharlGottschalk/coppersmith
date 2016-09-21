@@ -27,7 +27,13 @@ var
 
   // rtl
   buildRTL     = require('./semantic/tasks/rtl/build'),
-  watchRTL     = require('./semantic/tasks/rtl/watch')
+  watchRTL     = require('./semantic/tasks/rtl/watch'),
+
+  // linting
+  jshint = require('gulp-jshint'),
+  stylish = require('jshint-stylish'),
+  packageJSON = require('./package.json'),
+  jshintConf = packageJSON.jshintConf
 ;
 
 
@@ -71,6 +77,10 @@ if(config.rtl) {
   gulp.task('build-rtl', 'Build all files as RTL', buildRTL);
 }
 
+/*--------------
+      Copy
+---------------*/
+
 gulp.task('copy-css', ['build'], function(cb) {
   return gulp.src('./semantic/dist/semantic.min.css')
     .pipe(gulp.dest('./themes/default/assets'));
@@ -79,4 +89,15 @@ gulp.task('copy-css', ['build'], function(cb) {
 gulp.task('copy', ['copy-css'], function(cb) {
   return gulp.src('./semantic/dist/semantic.min.js')
     .pipe(gulp.dest('./themes/default/assets'));
+});
+
+/*--------------
+      Lint
+---------------*/
+
+gulp.task('lint', function() {
+    jshintConf.lookup = false;
+    return gulp.src('cs/*.js')
+        .pipe(jshint(jshintConf))
+        .pipe(jshint.reporter(stylish));
 });

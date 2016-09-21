@@ -1,10 +1,14 @@
+/* jshint node: true */
+'use strict';
+
 var fs = require('fs'),
-	path = require('path');
+	path = require('path'),
+    chalk = require('chalk');
 
 exports.getStub = function(stub) {
     var content = fs.readFileSync(path.join(__dirname,'stubs',stub), 'utf8');
     return content;
-}
+};
 
 exports.format = function(content, values) {
     if (values.title) {
@@ -26,7 +30,7 @@ exports.format = function(content, values) {
         content = content.replace(/\[draft\]/gim, values.draft);
     }
     return content;
-}
+};
 
 exports.titleCase = function(string) {
     var smallWords = /^(a|an|and|as|at|but|by|en|for|if|in|nor|of|on|or|per|the|to|vs?\.?|via)$/i;
@@ -44,7 +48,7 @@ exports.titleCase = function(string) {
 
         return match.charAt(0).toUpperCase() + match.substr(1);
     });
-}
+};
 
 exports.getThemePath = function(dir, cwd) {
     if (!dir || dir === '')
@@ -52,7 +56,7 @@ exports.getThemePath = function(dir, cwd) {
         return path.join(__dirname, '../themes');
     }
     return path.join(cwd, dir);
-}
+};
 
 exports.getTheme = function(theme) {
     if (!theme || theme === '')
@@ -60,7 +64,7 @@ exports.getTheme = function(theme) {
         return 'default';
     }
     return theme;
-}
+};
 
 exports.getDate = function() {
     var now = new Date(),
@@ -77,4 +81,28 @@ exports.getDate = function() {
     }
 
     return day + '/' + month + '/' + year;
-}
+};
+
+exports.log = {
+    error: function(message) {
+        console.log(chalk.bold.red(message));
+    },
+    info: function(message) {
+        console.log(chalk.bold.blue(message));
+    },
+    success: function(message) {
+        console.log(chalk.bold.green(message));
+    },
+    dark: function(message) {
+        console.log(chalk.bold.black(message));
+    },
+    mag: function(message) {
+        console.log(chalk.bold.magenta(message));
+    },
+    yel: function(message) {
+        console.log(chalk.bold.yellow(message));
+    },
+    wht: function(message) {
+        console.log(chalk.bold.white(message));
+    }
+};

@@ -1,3 +1,6 @@
+/* jshint node: true */
+'use strict';
+
 var metalsmith = require('metalsmith'),
 	collections = require('metalsmith-collections'),
 	inplace = require('metalsmith-in-place'),
@@ -9,7 +12,6 @@ var metalsmith = require('metalsmith'),
 	ignore = require('metalsmith-ignore'),
 	assets = require('metalsmith-assets'),
 	path = require('path'),
-	handlebars = require('./handlebars.js'),
 	helper = require('./helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
@@ -20,6 +22,10 @@ var metalsmith = require('metalsmith'),
 	themeLayoutsPath = path.join(themePath, 'layouts'),
 	themePartialsPath = path.join(themePath, 'partials'),
 	themeAssetsPath = path.join(themePath, 'assets');
+
+require('./handlebars.js');
+
+helper.log.dark('CopperSmith: Generating Site');
 
 metalsmith(sourcePath)
 	.source('')
@@ -67,3 +73,5 @@ metalsmith(sourcePath)
 			throw err;
 		}
 	});
+
+helper.log.success('CopperSmith: Complete!');

@@ -1,7 +1,9 @@
+/* jshint node: true */
+'use strict';
+
 var path = require('path'),
 	fs = require('fs'),
 	handlebars = require('handlebars'),
-    slugify = require('slugify'),
 	helper = require('./helper.js'),
     cwd = process.cwd(),
     config = require(path.join(cwd, 'coppersmith.json'));
@@ -9,11 +11,9 @@ var path = require('path'),
 handlebars.registerHelper('is', function (left, operator, right, options) {
     switch (operator) {
         case '==':
-            return (left == right) ? options.fn(this) : options.inverse(this);
         case '===':
             return (left === right) ? options.fn(this) : options.inverse(this);
         case '!=':
-        	return (left != right) ? options.fn(this) : options.inverse(this);
         case '!==':
         	return (left !== right) ? options.fn(this) : options.inverse(this);
         case '<':
@@ -35,7 +35,6 @@ handlebars.registerHelper('is', function (left, operator, right, options) {
 
 handlebars.registerHelper('asset', function (name, context) {
     var collection = context.data.root.collection[0],
-        page = slugify(context.data.root.title),
         url = '';
     if (collection === 'home') {
         url = 'assets/' + name;
@@ -50,7 +49,8 @@ handlebars.registerHelper('asset', function (name, context) {
 handlebars.registerHelper('snippet', function (name, context) {
 	var collection = context.data.root.collection,
 		page = helper.titleCase(context.data.root.title),
-		snippet = '';
+		snippet = '',
+        exists = false;
 	if (collection === 'home') {
 		snippet = path.join(cwd, config.sourcePath, 'pages', '_snippets', name + '.html');
 	} else if (collection === 'root') {
@@ -58,7 +58,7 @@ handlebars.registerHelper('snippet', function (name, context) {
     } else {
 		snippet = path.join(cwd, config.sourcePath, 'pages', collection, page, '_snippets', name + '.html');
 		try {
-			var exists = fs.statSync(snippet);
+			exists = fs.statSync(snippet);
 		} catch(e) {
 			snippet = path.join(cwd, config.sourcePath, 'pages', '_snippets', name + '.html');
 		}
