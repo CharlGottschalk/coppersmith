@@ -1,16 +1,19 @@
 <div class="ui left fixed vertical menu">
-	{{#each collections}}
-	{{#is @key '===' 'root'}}
 	<div class="item">
 		<div class="menu">
-			{{#each this}}
+			<a href="/" class="item">
+				Home
+			</a>
+			{{#each collections.root}}
 			<a class="item">
 				{{title}}
 			</a>
 			{{/each}}
 		</div>
 	</div>
-	{{else}}
+	{{#each collections}}
+	{{#is @key '!==' 'home'}}
+	{{#is @key '!==' 'root'}}
 	<div class="item">
 		<div class="header">{{titleCase @key}}</div>
 		<div class="menu">
@@ -19,6 +22,7 @@
 			{{/each}}
 		</div>
 	</div>
+	{{/is}}
 	{{/is}}
 	{{/each}}
 </div>

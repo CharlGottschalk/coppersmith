@@ -4,7 +4,9 @@ collection: [collection]
 author: [author]
 date: [date]
 version: [version]
-draft: true
+draft: [draft]
 ---
 
 # [title]
+
+This is the [title] page's content.

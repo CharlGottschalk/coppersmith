@@ -1,0 +1,13 @@
+console.log('====== Using CopperSmith ======');
+console.log('-----------------------------');
+console.log('    $ copper / copper init');
+console.log('    > Initializes CopperSmith');
+console.log('-----------------------------');
+console.log('    $ copper add');
+console.log('    > Add new pages');
+console.log('-----------------------------');
+console.log('    $ copper build');
+console.log('    > Generate static files');
+console.log('-----------------------------');
+console.log('    $ copper help');
+console.log('    > Display this help');

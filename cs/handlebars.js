@@ -1,7 +1,10 @@
 var path = require('path'),
 	fs = require('fs'),
 	handlebars = require('handlebars'),
-	helper = require('./helper.js');
+    slugify = require('slugify'),
+	helper = require('./helper.js'),
+    cwd = process.cwd(),
+    config = require(path.join(cwd, 'coppersmith.json'));
 
 handlebars.registerHelper('is', function (left, operator, right, options) {
     switch (operator) {
@@ -30,18 +33,34 @@ handlebars.registerHelper('is', function (left, operator, right, options) {
     }
 });
 
+handlebars.registerHelper('asset', function (name, context) {
+    var collection = context.data.root.collection[0],
+        page = slugify(context.data.root.title),
+        url = '';
+    if (collection === 'home') {
+        url = 'assets/' + name;
+    } else if (collection === 'root') {
+        url = '../assets/' + name;
+    } else {
+        url = '../../assets/' + name;
+    }
+    return url;
+});
+
 handlebars.registerHelper('snippet', function (name, context) {
 	var collection = context.data.root.collection,
-		page = titleCase(context.data.root.title),
+		page = helper.titleCase(context.data.root.title),
 		snippet = '';
-	if (collection === 'root') {
-		snippet = path.join(__dirname, '/src/pages/_snippets', name + '.html');
-	} else {
-		snippet = path.join(__dirname, '/src/pages/', collection, page, '_snippets', name + '.html');
+	if (collection === 'home') {
+		snippet = path.join(cwd, config.sourcePath, 'pages', '_snippets', name + '.html');
+	} else if (collection === 'root') {
+        snippet = path.join(cwd, config.sourcePath, 'pages', page, '_snippets', name + '.html');
+    } else {
+		snippet = path.join(cwd, config.sourcePath, 'pages', collection, page, '_snippets', name + '.html');
 		try {
 			var exists = fs.statSync(snippet);
 		} catch(e) {
-			snippet = path.join(__dirname, '/src/pages/_snippets', name + '.html');
+			snippet = path.join(cwd, config.sourcePath, 'pages', '_snippets', name + '.html');
 		}
 	}
 	var content = fs.readFileSync(snippet, 'utf8');

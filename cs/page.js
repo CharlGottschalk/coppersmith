@@ -6,18 +6,13 @@ var inquirer = require('inquirer'),
 	slugify = require('slugify'),
 	helper = require('./helper.js'),
 	cwd = process.cwd(),
-	config = require(path.join(cwd, 'doc-smith.json')),
+	config = require(path.join(cwd, 'coppersmith.json')),
 	docsPath = path.join(cwd, config.sourcePath, 'pages'),
+	author = config.author,
+	date = helper.getDate(),
 	pages= [],
 	collections = [
-		'new',
-		'root',
-		new inquirer.Separator()
-	],
-	parents = [
-		'none',
-		'new',
-		new inquirer.Separator()
+		'new'
 	],
 	questions = {
 		title: {
@@ -36,6 +31,18 @@ var inquirer = require('inquirer'),
 			name: 'newCollection',
 			message: 'What would you like to call the new collection?'
 		},
+		author: {
+			type: 'input',
+			name: 'author',
+			message: 'Who is the author?',
+			default: author
+		},
+		draft: {
+			type: 'confirm',
+			name: 'draft',
+			message: 'Set this page as a draft?',
+			default: true
+		},
 		snippetA: {
 			type: 'confirm',
 			name: 'snippetA',
@@ -53,9 +60,9 @@ var inquirer = require('inquirer'),
 			name: 'name',
 			message: 'What would you like to call the snippet?'
 		},
-		more: {
+		another: {
 			type: 'confirm',
-			name: 'more',
+			name: 'another',
 			message: 'Would you like to add another page?',
 			default: false
 		},
@@ -63,11 +70,15 @@ var inquirer = require('inquirer'),
 
 function loadCollections() {
 	var dirs = fs.readdirSync(docsPath).filter(function(file) {
-		return fs.statSync(path.join(docsPath, file)).isDirectory();
+		return fs.statSync(path.join(docsPath, file)).isDirectory() && !file.startsWith('_');
 	});
-	for (var i = dirs.length - 1; i >= 0; i--) {
+	var i = dirs.length;
+	if (i === 0) {
+		collections.push('root');
+	}
+	collections.push(new inquirer.Separator());
+	while(i--) {
 		collections.push(dirs[i]);
-		parents.push(dirs[i]);
 	}
 }
 
@@ -75,9 +86,12 @@ function askTitle() {
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
 			title: helper.titleCase(answers.title),
+			author: author,
+			date: date,
+			draft: true,
 			slug: slugify(answers.title),
 			collection: 'root',
-			collectionExists: true,
+			collectionExists: false,
 			snippets: [],
 			route: '',
 			version: '0.1.0',
@@ -94,8 +108,8 @@ function chooseCollection(args) {
 			askCollection(args);
 		} else {
 			args.collection = slugify(answers.collection);
-			args.collectionExists = true;
-			askSnippetA(getRoute(args));
+			args.collectionExists = false;
+			askDraft(args);
 		}
 	});
 }
@@ -104,6 +118,20 @@ function askCollection(args) {
 	inquirer.prompt(questions.newCollection).then(function(answers) {
 		args.collection = slugify(answers.newCollection);
 		args.collectionExists = false;
+		askDraft(args);
+	});
+}
+
+function askDraft(args) {
+	inquirer.prompt(questions.draft).then(function(answers) {
+		args.draft = answers.draft;
+		askAuthor(args);
+	});
+}
+
+function askAuthor(args) {
+	inquirer.prompt(questions.author).then(function(answers) {
+		args.author = helper.titleCase(answers.author);
 		askSnippetA(args);
 	});
 }
@@ -136,8 +164,8 @@ function askSnippetName(args) {
 }
 
 function askAnother(args) {
-	inquirer.prompt(questions.more).then(function(answers) {
-		if (answers.more){
+	inquirer.prompt(questions.another).then(function(answers) {
+		if (answers.another){
 			askTitle();
 		} else {
 			complete();
@@ -147,7 +175,7 @@ function askAnother(args) {
 
 function getPaths(args) {
 	var collectionPath = '';
-	if (args.collection !== 'root') {
+	if (args.collection !== 'home') {
 		collectionPath = args.collection;
 	}
 	var paths = {
@@ -160,35 +188,38 @@ function getPaths(args) {
 }
 
 function save(args) {
-	pages.push(args);
 	var paths = getPaths(args),
 		file = path.join(paths.page, args.slug + '.md'),
-		snippets = path.join(paths.page, args.slug + '.json'),
-        stub = helper.getStub('doc.md'),
-        content = helper.format(stub, args);
-    if (!args.collectionExists) {
-        fs.mkdirSync(paths.collection);
-    }
+        docStub = helper.getStub('doc.md'),
+        content = helper.format(docStub, args);
+    console.log(args);
+    args.paths = paths;
+    pages.push(args);
+    try {
+		var exists = fs.statSync(paths.collection);
+	} catch(e) {
+		fs.mkdirSync(paths.collection);
+	}
     fs.mkdirSync(paths.page);
     fs.writeFile(file, content, function(err) {
         if (err) {
             return console.log(err);
         }
-    });    
+    });
     if (args.snippets.length) {
-    	var i = args.snippets.length;
-    	var snip = '';
+    	var i = args.snippets.length,
+    		snipStub = helper.getStub('snippet.html'),
+    		snip = '';
     	fs.mkdirSync(paths.snips);
         while (i--) {
         	snip = path.join(paths.snips, args.snippets[i] + '.html');
-            fs.writeFile(snip, '<!-- Add code snippet here -->', function(err) {
+            fs.writeFile(snip, snipStub, function(err) {
 	            if (err) {
 	                return console.log(err);
 	            }
 	        });
         }
     }
-    console.log(args.title + ' created!');
     askAnother();
 }
 

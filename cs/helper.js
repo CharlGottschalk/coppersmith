@@ -7,8 +7,25 @@ exports.getStub = function(stub) {
 }
 
 exports.format = function(content, values) {
-    content = content.replace(/\[title\]/gim, values.title);
-    return content.replace(/\[collection\]/gim, values.collection);
+    if (values.title) {
+        content = content.replace(/\[title\]/gim, values.title);
+    }
+    if (values.collection) {
+        content = content.replace(/\[collection\]/gim, values.collection);
+    }
+    if (values.author) {
+        content = content.replace(/\[author\]/gim, values.author);
+    }
+    if (values.date) {
+        content = content.replace(/\[date\]/gim, values.date);
+    }
+    if (values.version) {
+        content = content.replace(/\[version\]/gim, values.version);
+    }
+    if (values.draft || !values.draft) {
+        content = content.replace(/\[draft\]/gim, values.draft);
+    }
+    return content;
 }
 
 exports.titleCase = function(string) {
@@ -29,12 +46,12 @@ exports.titleCase = function(string) {
     });
 }
 
-exports.getThemePath = function(path, cwd) {
-    if (!path || path === '')
+exports.getThemePath = function(dir, cwd) {
+    if (!dir || dir === '')
     {
         return path.join(__dirname, '../themes');
     }
-    return path.join(cwd, path);
+    return path.join(cwd, dir);
 }
 
 exports.getTheme = function(theme) {
@@ -43,4 +60,21 @@ exports.getTheme = function(theme) {
         return 'default';
     }
     return theme;
+}
+
+exports.getDate = function() {
+    var now = new Date(),
+        day = now.getDate(),
+        month = now.getMonth() + 1,
+        year = now.getFullYear();
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    return day + '/' + month + '/' + year;
 }

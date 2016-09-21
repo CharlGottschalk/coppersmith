@@ -70,3 +70,13 @@ if(config.rtl) {
   gulp.task('watch-rtl', 'Watch files as RTL', watchRTL);
   gulp.task('build-rtl', 'Build all files as RTL', buildRTL);
 }
+
+gulp.task('copy-css', ['build'], function(cb) {
+  return gulp.src('./semantic/dist/semantic.min.css')
+    .pipe(gulp.dest('./themes/default/assets'));
+});
+
+gulp.task('copy', ['copy-css'], function(cb) {
+  return gulp.src('./semantic/dist/semantic.min.js')
+    .pipe(gulp.dest('./themes/default/assets'));
+});

@@ -5,20 +5,29 @@ var inquirer = require('inquirer'),
 	path = require('path'),
 	slugify = require('slugify'),
 	helper = require('./helper.js'),
-	cwd = process.cwd();
+	cwd = process.cwd(),
+	pkg = require(path.join(cwd, 'package.json')),
+	defaultAuthor = pkg.author || '',
+	date = helper.getDate();
 
 var questions = {
 		source: {
 			type: 'input',
 			name: 'source',
-			message: 'Where would you like to store your source files?',
-			default: 'src'
+			message: 'Where would you like to keep your source files?',
+			default: 'docs'
 		},
 		build: {
 			type: 'input',
 			name: 'build',
-			message: 'Where would you like your docs to be built?',
+			message: 'Where would you like your generated files to go?',
 			default: 'build'
+		},
+		author: {
+			type: 'input',
+			name: 'author',
+			message: 'Who is the default author?',
+			default: defaultAuthor
 		},
 	};
 
@@ -28,7 +37,8 @@ function askSource() {
 			sourcePath: slugify(answers.source),
 			buildPath: '',
 			themePath: '',
-			theme: 'default'
+			theme: 'default',
+			author: defaultAuthor
 		};
 		askBuild(args);
 	});
@@ -37,6 +47,13 @@ function askSource() {
 function askBuild(args) {
 	inquirer.prompt(questions.build).then(function(answers) {
 		args.buildPath = slugify(answers.build);
+		askAuthor(args);
+	});
+}
+
+function askAuthor(args) {
+	inquirer.prompt(questions.author).then(function(answers) {
+		args.author = helper.titleCase(answers.author);
 		save(args);
 	});
 }
@@ -45,9 +62,13 @@ function save(args) {
 	var sourcePath = path.join(cwd, args.sourcePath),
 		viewsPath = path.join(sourcePath, 'pages'),
 		indexPath = path.join(viewsPath, 'index.md'),
-		config = path.join(cwd, 'doc-smith.json'),
-		stub = helper.getStub('doc.md'),
-        content = helper.format(stub, {title: 'Home', collection: 'home'});
+		config = path.join(cwd, 'coppersmith.json'),
+		stub = helper.getStub('home.md'),
+		replace = {
+			author: defaultAuthor,
+			date: date
+		},
+        content = helper.format(stub, replace);
 
     fs.mkdirSync(sourcePath);
     fs.mkdirSync(viewsPath);
@@ -63,7 +84,7 @@ function save(args) {
             return console.log(err);
         }
     });
-    console.log('doc-smith initialized!');
+    console.log('CopperSmith initialized!');
 }
 
 askSource();

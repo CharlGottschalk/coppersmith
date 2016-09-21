@@ -12,16 +12,17 @@ var metalsmith = require('metalsmith'),
 	handlebars = require('./handlebars.js'),
 	helper = require('./helper.js'),
 	cwd = process.cwd(),
-	config = require(path.join(cwd, 'doc-smith.json')),
+	config = require(path.join(cwd, 'coppersmith.json')),
 	sourcePath = path.join(cwd, config.sourcePath, 'pages'),
 	buildPath = path.join(cwd, config.buildPath),
 	theme = helper.getTheme(config.theme),
 	themePath = path.join(helper.getThemePath(config.themePath, cwd), theme),
-	themeLayoutsPath = path.join(themepath, 'layouts'),
-	themePartialsPath = path.join(themepath, 'partials'),
-	themeAssetsPath = path.join(themepath, 'assets');
+	themeLayoutsPath = path.join(themePath, 'layouts'),
+	themePartialsPath = path.join(themePath, 'partials'),
+	themeAssetsPath = path.join(themePath, 'assets');
 
 metalsmith(sourcePath)
+	.source('')
   	.destination(buildPath)
   	.use(ignore([
   			'*.html',
