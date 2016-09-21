@@ -27,11 +27,11 @@ The structure of a site looks like the following:
             - page.md
 ```
 
-Apart from the home page (`docs/index.md`), all other pages are contained in folders / collections. The `root` collection will contain the root pages i.e. domain.com/page. Any other collections will contain the pages for sub-pages i.e. domain.com/collection/page.
+Apart from the home page (`docs/index.md`), all other pages are contained in folders / collections. The `root` collection will contain the root pages i.e. **domain.com/page**. Any other collections will contain the pages for sub-pages i.e. **domain.com/collection/page**.
 
 All markdown files are stored in a folder of the page name i.e. `docs/collection/page/page.md`.
 
-CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `about.html` into `about/index.html`)
+CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `about/about.md` into `about/index.html`)
 
 So when the site is rendered, the structure will look like the following:
 
@@ -51,10 +51,10 @@ Theming is supported (primitively at the moment) and allows you to easily change
 
 ## Snippets
 
-Including HTML snippets in your pages are easy using a handlebars helper.
+Including HTML snippets in your pages are easy using a handlebars helper. Just include the snippet helper in your markdown file.
 
 ```
-{{snippet 'example'}}
+{{{snippet 'example'}}}
 ```
 
 The above code will look for a snippet in the `docs/collection/page/_snippets` folder called `example.html`. If it doesn't find it, it will look for the snippet in the `docs/_snippets` folder.
