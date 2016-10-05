@@ -1,28 +1,44 @@
-<div class="ui left fixed vertical menu">
-	<div class="item">
-		<div class="menu">
-			<a href="/" class="item">
-				Home
-			</a>
+<aside class="main-sidebar">
+	<section class="sidebar">
+		<ul class="sidebar-menu">
+			<li>
+				<a href="/">
+					<i class="fa fa-circle-o"></i> 
+					<span>Home</span>
+				</a>
+			</li>
 			{{#each collections.root}}
-			<a class="item">
-				{{title}}
-			</a>
+			<li>
+				<a href="{{path}}">
+					<i class="fa fa-circle-o"></i> 
+					<span>{{title}}</span>
+				</a>
+			</li>
 			{{/each}}
-		</div>
-	</div>
-	{{#each collections}}
-	{{#is @key '!==' 'home'}}
-	{{#is @key '!==' 'root'}}
-	<div class="item">
-		<div class="header">{{titleCase @key}}</div>
-		<div class="menu">
-			{{#each this}}
-			<a class="item">{{title}}</a>
+			{{#each collections}}
+			{{#is @key '!==' 'home'}}
+			{{#is @key '!==' 'root'}}
+			<li class="treeview">
+				<a href="#">
+					<i class="fa fa-book"></i> <span>{{titleCase @key}}</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					{{#each this}}
+					<li>
+						<a href="{{path}}">
+							<i class="fa fa-circle-o"></i> 
+							<span>{{title}}</span>
+						</a>
+					</li>
+					{{/each}}
+				</ul>
+			</li>
+			{{/is}}
+			{{/is}}
 			{{/each}}
-		</div>
-	</div>
-	{{/is}}
-	{{/is}}
-	{{/each}}
-</div>
+		</ul>
+	</section>
+</aside>

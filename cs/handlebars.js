@@ -70,3 +70,7 @@ handlebars.registerHelper('snippet', function (name, context) {
 handlebars.registerHelper('titleCase', function (string) {
 	return helper.titleCase(string);
 });
+
+handlebars.registerHelper('conf', function (name) {
+    return helper.deepValue(config, name);
+});

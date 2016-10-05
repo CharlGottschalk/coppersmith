@@ -3,27 +3,31 @@
 
     {{> head}}
 
-    <body>
+    <body class="hold-transition skin-{{conf 'theme_options.skin'}} sidebar-mini sidebar-collapse">
+        <div class="wrapper">
 
-        {{!-- {{> top}} --}}
+            {{> top}}
 
-        {{> nav}}
+            {{> nav}}
 
-    	<div class="ui main">
-    		
-    		<div class="ui fluid container">
-          
+            <div class="content-wrapper">
+
                 {{> header}}
+                
+                <section class="content">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            
+                            {{{contents}}}
 
-                <div class="ui divider"></div>
-
-                {{{contents}}}
-
+                        </div>
+                    </div>
+                </section>
             </div>
 
-    	</div>
-
-        {{> footer}}
+            {{> footer}}
+            
+        </div>
 
         {{> scripts}}
         

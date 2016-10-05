@@ -106,3 +106,10 @@ exports.log = {
         console.log(chalk.bold.white(message));
     }
 };
+
+exports.deepValue = function(obj, path){
+    for (var i=0, path=path.split('.'), len=path.length; i<len; i++){
+        obj = obj[path[i]];
+    };
+    return obj;
+};

@@ -1,6 +1,6 @@
 # CopperSmith
 #### Simple static documentation / site builder using markdown
-![semver 0.1.1](https://img.shields.io/badge/semver-0.1.1-green.svg)
+![semver 0.1.2](https://img.shields.io/badge/semver-0.1.2-green.svg)
 
 ---
 
@@ -135,5 +135,4 @@ Generate your static site into your chosen build folder.
 ## To Do:
 
 * Add tests
-* Finish default theme
 * Finish theming

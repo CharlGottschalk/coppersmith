@@ -41,6 +41,9 @@ function askSource() {
 			buildPath: '',
 			themePath: '',
 			theme: 'default',
+			theme_options: {
+				skin: 'black-light'
+			},
 			author: defaultAuthor
 		};
 		askBuild(args);
