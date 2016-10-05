@@ -44,7 +44,8 @@ function askSource() {
 			theme_options: {
 				skin: 'black-light'
 			},
-			author: defaultAuthor
+			author: defaultAuthor,
+			name: 'Site Name'
 		};
 		askBuild(args);
 	});
