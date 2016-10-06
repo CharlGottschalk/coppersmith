@@ -3,6 +3,11 @@
 ![semver 0.1.4](https://img.shields.io/badge/semver-0.1.4-green.svg)
 
 ---
+Please note, that this project is in active development and though it is in a wroking state, I would not recommend you use it for a production site just yet. Feel free however to test it out.
+
+Please be aware that certain things might break with each new release before v1.0.0
+
+---
 
 ## Overview
 
