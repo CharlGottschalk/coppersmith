@@ -33,6 +33,12 @@ handlebars.registerHelper('is', function (left, operator, right, options) {
     }
 });
 
+handlebars.registerHelper('notroot', function (key, options) {
+    if (key !== 'root' && key !== 'home') {
+        return options.fn(this);
+    }
+});
+
 handlebars.registerHelper('asset', function (name, context) {
     var collection = context.data.root.collection[0],
         url = '';
@@ -71,6 +77,18 @@ handlebars.registerHelper('titleCase', function (string) {
 	return helper.titleCase(string);
 });
 
-handlebars.registerHelper('conf', function (name) {
+handlebars.registerHelper('skin', function () {
+    return config.template.skin;
+});
+
+handlebars.registerHelper('config', function (name) {
     return helper.deepValue(config, name);
+});
+
+handlebars.registerHelper('option', function (name) {
+    return helper.deepValue(config.options, name);
+});
+
+handlebars.registerHelper('template', function (name) {
+    return helper.deepValue(config.template, name);
 });

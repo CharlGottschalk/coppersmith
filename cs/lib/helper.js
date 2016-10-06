@@ -6,7 +6,7 @@ var fs = require('fs'),
     chalk = require('chalk');
 
 exports.getStub = function(stub) {
-    var content = fs.readFileSync(path.join(__dirname,'stubs',stub), 'utf8');
+    var content = fs.readFileSync(path.join(__dirname,'../stubs',stub), 'utf8');
     return content;
 };
 
@@ -53,17 +53,17 @@ exports.titleCase = function(string) {
 exports.getThemePath = function(dir, cwd) {
     if (!dir || dir === '')
     {
-        return path.join(__dirname, '../themes');
+        return path.join(__dirname, '../../templates');
     }
     return path.join(cwd, dir);
 };
 
-exports.getTheme = function(theme) {
-    if (!theme || theme === '')
+exports.getTheme = function(template) {
+    if (!template || template === '')
     {
         return 'default';
     }
-    return theme;
+    return template;
 };
 
 exports.getDate = function() {

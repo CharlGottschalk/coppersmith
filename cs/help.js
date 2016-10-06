@@ -2,7 +2,7 @@
 'use strict';
 
 var path = require('path'),
-	helper = require('./helper.js'),
+	helper = require('./lib/helper.js'),
 	pkg = require(path.join(__dirname, '../package.json'));
 
 helper.log.dark('====== Using CopperSmith ======');
@@ -20,5 +20,8 @@ helper.log.dark('-------------------------------');
 helper.log.success('$ copper build');
 helper.log.info('Generate static files');
 helper.log.dark('-------------------------------');
+helper.log.success('$ copper publish (coming soon)');
+helper.log.info('Publish to FTP server');
+helper.log.dark('-------------------------------');
 helper.log.success('$ copper help');
-helper.log.info('Displays this help');
+helper.log.info('Display help');

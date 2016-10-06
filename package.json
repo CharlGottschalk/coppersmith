@@ -1,7 +1,7 @@
 {
   "name": "coppersmith",
-  "version": "0.1.3",
-  "description": "Simple static documentation builder using markdown",
+  "version": "0.1.4",
+  "description": "Simple static site builder using markdown",
   "main": "cs/index.js",
   "scripts": {
     "test": "test"
@@ -42,6 +42,9 @@
     "docs",
     "documentation",
     "builder",
+    "static",
+    "site",
+    "generator",
     "charl gottschalk"
   ],
   "author": "Charl Gottschalk (https://github.com/CharlGottschalk)",

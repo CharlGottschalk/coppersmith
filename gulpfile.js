@@ -23,20 +23,20 @@ var
  */
 
 elixir(function(mix) {
-    mix.less('./themes/default/less/AdminLTE.less', './themes/default/assets/css');
-    // mix.less('./themes/default/less/skins/skin-black-light.less', './themes/default/assets/css/skins/skin-black-light.css');
-    // mix.less('./themes/default/less/skins/skin-blue-light.less', './themes/default/assets/css/skins/skin-blue-light.css');
-    // mix.less('./themes/default/less/skins/skin-green-light.less', './themes/default/assets/css/skins/skin-green-light.css');
-    // mix.less('./themes/default/less/skins/skin-purple-light.less', './themes/default/assets/css/skins/skin-purple-light.css');
-    // mix.less('./themes/default/less/skins/skin-red-light.less', './themes/default/assets/css/skins/skin-red-light.css');
-    // mix.less('./themes/default/less/skins/skin-yellow-light.less', './themes/default/assets/css/skins/skin-yellow-light.css');
-    // mix.less('./themes/default/less/skins/skin-black.less', './themes/default/assets/css/skins/skin-black.css');
-    // mix.less('./themes/default/less/skins/skin-blue.less', './themes/default/assets/css/skins/skin-blue.css');
-    // mix.less('./themes/default/less/skins/skin-green.less', './themes/default/assets/css/skins/skin-green.css');
-    // mix.less('./themes/default/less/skins/skin-purple.less', './themes/default/assets/css/skins/skin-purple.css');
-    // mix.less('./themes/default/less/skins/skin-red.less', './themes/default/assets/css/skins/skin-red.css');
-    // mix.less('./themes/default/less/skins/skin-yellow.less', './themes/default/assets/css/skins/skin-yellow.css');
-    mix.less('./themes/default/less/skins/*.less', './themes/default/assets/css/skins/skins-all.css');
+    mix.less('./templates/default/less/AdminLTE.less', './templates/default/assets/css');
+    // mix.less('./templates/default/less/skins/skin-black-light.less', './templates/default/assets/css/skins/skin-black-light.css');
+    // mix.less('./templates/default/less/skins/skin-blue-light.less', './templates/default/assets/css/skins/skin-blue-light.css');
+    // mix.less('./templates/default/less/skins/skin-green-light.less', './templates/default/assets/css/skins/skin-green-light.css');
+    // mix.less('./templates/default/less/skins/skin-purple-light.less', './templates/default/assets/css/skins/skin-purple-light.css');
+    // mix.less('./templates/default/less/skins/skin-red-light.less', './templates/default/assets/css/skins/skin-red-light.css');
+    // mix.less('./templates/default/less/skins/skin-yellow-light.less', './templates/default/assets/css/skins/skin-yellow-light.css');
+    // mix.less('./templates/default/less/skins/skin-black.less', './templates/default/assets/css/skins/skin-black.css');
+    // mix.less('./templates/default/less/skins/skin-blue.less', './templates/default/assets/css/skins/skin-blue.css');
+    // mix.less('./templates/default/less/skins/skin-green.less', './templates/default/assets/css/skins/skin-green.css');
+    // mix.less('./templates/default/less/skins/skin-purple.less', './templates/default/assets/css/skins/skin-purple.css');
+    // mix.less('./templates/default/less/skins/skin-red.less', './templates/default/assets/css/skins/skin-red.css');
+    // mix.less('./templates/default/less/skins/skin-yellow.less', './templates/default/assets/css/skins/skin-yellow.css');
+    mix.less('./templates/default/less/skins/*.less', './templates/default/assets/css/skins/skins-all.css');
 });
 
 /*--------------

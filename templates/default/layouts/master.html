@@ -3,7 +3,7 @@
 
     {{> head}}
 
-    <body class="hold-transition skin-{{conf 'theme_options.skin'}} sidebar-mini sidebar-collapse">
+    <body class="hold-transition skin-{{skin}} sidebar-mini">
         <div class="wrapper">
 
             {{> top}}
@@ -11,8 +11,6 @@
             {{> nav}}
 
             <div class="content-wrapper">
-
-                {{> header}}
                 
                 <section class="content">
                     <div class="box box-solid">
@@ -24,6 +22,8 @@
                     </div>
                 </section>
             </div>
+
+            {{> footer}}
             
         </div>
 

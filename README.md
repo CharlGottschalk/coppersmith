@@ -1,10 +1,6 @@
 # CopperSmith
-#### Simple static documentation / site builder using markdown
-![semver 0.1.3](https://img.shields.io/badge/semver-0.1.3-green.svg)
-
----
-
-Please note, that this project is in active development and though it is in a wroking state, I would not recommend you use it for a production site just yet. Feel free however to test it out.
+#### A simple static site builder using markdown
+![semver 0.1.4](https://img.shields.io/badge/semver-0.1.4-green.svg)
 
 ---
 
@@ -12,52 +8,63 @@ Please note, that this project is in active development and though it is in a wr
 
 CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).
 
-The structure of a site looks like the following:
+Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.
+
+Once built, the site can be hosted anywhere static HTML content is supported, like [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). It's perfect for shared hosting and systems where you don't have account privileges.
+
+---
+
+The structure of a site is laid out to be easy to maintain and looks like the following:
 
 ```
 - docs/
-    - index.md
+    - _snippets
+    - getting-started/
+        - intro/
+            - _snippets/
+            - intro.md
     - root/
-        - page/
+        - welcome/
             - _snippets/
-            - page.md
-    - collection/
-        - page/
-            - _snippets/
-            - page.md
+            - welcome.md
+    - index.md
 ```
 
 Apart from the home page (`docs/index.md`), all other pages are contained in folders / collections. The `root` collection will contain the root pages i.e. **domain.com/page**. Any other collections will contain the pages for sub-pages i.e. **domain.com/collection/page**.
 
-All markdown files are stored in a folder of the page name i.e. `docs/collection/page/page.md`.
+All markdown files are stored in a folder of the same name as the page i.e. `docs/getting-started/intro/intro.md`.
 
-CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `about/about.md` into `about/index.html`)
+CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `getting-started/intro/intro.md` into `getting-started/intro/index.html`)
 
 So when the site is rendered, the structure will look like the following:
 
 ```
 - build/
-    - index.html
-    - page/
-        - index.html
-    - collection/
-        - page/
+    - getting-started/
+        - intro/
             - index.html
+    - welcome/
+        - index.html
+    - index.html
 ```
-
-## Theming
-
-Theming is supported (primitively at the moment) and allows you to easily change the layout and styling using your own custom layouts and partials. Currently only [handlebars](http://handlebarsjs.com/) templating is supported. _More to come._
 
 ## Snippets
 
-Including HTML snippets in your pages are easy using a handlebars helper. Just include the snippet helper in your markdown file.
+Including HTML in your markdown is easy using a handlebars helper. Just include the snippet helper in your markdown file. This is so we can keep HTML apart from markdown.
 
 ```
 {{{snippet 'example'}}}
 ```
 
-The above code will look for a snippet in the `docs/collection/page/_snippets` folder called `example.html`. If it doesn't find it, it will look for the snippet in the `docs/_snippets` folder.
+Each page will have their own `_snippets` folder in which all HTML snippets will be kept.
+
+The above code will look for a snippet in the page's `_snippets` folder called `example.html`. If it doesn't find it, it will look for the snippet in the global `docs/_snippets` folder.
+
+## Templates
+
+Templating is supported and allows you to easily change the layout and styling with your own custom layouts and partials using the [handlebars](http://handlebarsjs.com/) templating engine.
+
+_Documentation to follow_
 
 ## Getting Started
 
@@ -76,11 +83,13 @@ Once installed, in your terminal, run:
 copper init
 ```
 
-_Answer the simple questions_
+_Answer the simple questions to initialize CopperSmith_
 
 ---
 
 Now that CopperSmith is installed and initialized, you may extend your site using the `copper [cmd]` commands.
+
+_Each command will present certain questions_
 
 ## Commands
 
@@ -90,13 +99,13 @@ Now that CopperSmith is installed and initialized, you may extend your site usin
 copper page
 ```
 
-Add a new page to your site by answering the simple questions.
+Add a new page to your site.
 
 ```
 copper snip
 ```
 
-Add a snippet to a page by answering the simple questions.
+Add a snippet to an existing page.
 
 ```
 copper build
@@ -104,7 +113,15 @@ copper build
 
 Generate your static site into your chosen build folder.
 
+```
+copper publish
+```
+
+Publish your site to an FTP server. _Coming soon_
+
 ## Dependencies
+
+[chalk](https://www.npmjs.com/package/chalk) v1.1.3
 
 [handlebars](https://www.npmjs.com/package/handlebars) v4.0.5
 
@@ -130,9 +147,11 @@ Generate your static site into your chosen build folder.
 
 [metalsmith-permalinks](https://www.npmjs.com/package/metalsmith-permalinks) v0.5.0
 
+[pretty-error](https://www.npmjs.com/package/pretty-error) v2.0.0
+
 [slugify](https://www.npmjs.com/package/slugify) v1.0.2
     
 ## To Do:
 
 * Add tests
-* Finish theming
+* Finish publish command

@@ -12,20 +12,20 @@ var metalsmith = require('metalsmith'),
 	ignore = require('metalsmith-ignore'),
 	assets = require('metalsmith-assets'),
 	path = require('path'),
-	helper = require('./helper.js'),
+	helper = require('./lib/helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
 	sourcePath = path.join(cwd, config.sourcePath, 'pages'),
 	buildPath = path.join(cwd, config.buildPath),
-	theme = helper.getTheme(config.theme),
-	themePath = path.join(helper.getThemePath(config.themePath, cwd), theme),
-	themeLayoutsPath = path.join(themePath, 'layouts'),
-	themePartialsPath = path.join(themePath, 'partials'),
-	themeAssetsPath = path.join(themePath, 'assets');
+	template = helper.getTheme(config.template.theme),
+	templatePath = path.join(helper.getThemePath(config.template.path, cwd), template),
+	templateLayoutsPath = path.join(templatePath, 'layouts'),
+	templatePartialsPath = path.join(templatePath, 'partials'),
+	templateAssetsPath = path.join(templatePath, 'assets');
 
-require('./handlebars.js');
+require('./lib/handlebars.js');
 
-helper.log.dark('CopperSmith: Generating Site');
+helper.log.dark('CopperSmith: Build Started...');
 
 metalsmith(sourcePath)
 	.source('')
@@ -58,14 +58,14 @@ metalsmith(sourcePath)
 			}]
 	}))
 	.use(layouts({
-		directory: themeLayoutsPath,
+		directory: templateLayoutsPath,
 		default: 'master.html',
 		pattern: '**/*.html',
-		'partials': themePartialsPath,
+		'partials': templatePartialsPath,
 		engine: 'handlebars'
 	}))
 	.use(assets({
-	  source: themeAssetsPath,
+	  source: templateAssetsPath,
 	  destination: path.join(buildPath, 'assets')
 	}))
 	.build(function(err) {
@@ -74,4 +74,4 @@ metalsmith(sourcePath)
 		}
 	});
 
-helper.log.success('CopperSmith: Complete!');
+helper.log.success('CopperSmith: Build Complete!');

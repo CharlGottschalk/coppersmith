@@ -5,13 +5,35 @@ var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
 	slugify = require('slugify'),
-	helper = require('./helper.js'),
+	helper = require('./lib/helper.js'),
 	cwd = process.cwd(),
 	pkg = require(path.join(cwd, 'package.json')),
 	defaultAuthor = pkg.author || '',
 	date = helper.getDate();
 
-var questions = {
+var templates = [
+		'default'
+	],
+	skins = [
+		'black',
+		'black-light',
+		'blue',
+		'blue-light',
+		'green',
+		'green-light',
+		'purple',
+		'purple-light',
+		'red',
+		'red-light',
+		'yellow',
+		'yellow-light'
+	],
+	questions = {
+		name: {
+			type: 'input',
+			name: 'name',
+			message: 'What is your site called?',
+		},
 		source: {
 			type: 'input',
 			name: 'source',
@@ -30,23 +52,47 @@ var questions = {
 			message: 'Who is the default author?',
 			default: defaultAuthor
 		},
+		template: {
+			type: 'list',
+			name: 'template',
+			message: 'What template would you like to use?',
+			choices: templates
+		},
+		skin: {
+			type: 'list',
+			name: 'skin',
+			message: 'What skin would you like?',
+			choices: skins
+		}
 	};
 
-function askSource() {
+function askName() {
 	helper.log.dark('CopperSmith: Initialize');
 	helper.log.info('Please answer the following questions:');
-	inquirer.prompt(questions.source).then(function(answers) {
+	inquirer.prompt(questions.name).then(function(answers) {
 		var args = {
-			sourcePath: slugify(answers.source),
+			name: answers.name,
+			author: defaultAuthor,
+			sourcePath: '',
 			buildPath: '',
-			themePath: '',
-			theme: 'default',
-			theme_options: {
+			template: {
+				path: '',
+				theme: 'default',
 				skin: 'black-light'
 			},
-			author: defaultAuthor,
-			name: 'Site Name'
+			options: {
+				copyright_year: '2016',
+				copyright_url: 'http://domain.com',
+				copyright_display: answers.name
+			}
 		};
+		askSource(args);
+	});
+}
+
+function askSource(args) {
+	inquirer.prompt(questions.source).then(function(answers) {
+		args.sourcePath = slugify(answers.source);
 		askBuild(args);
 	});
 }
@@ -61,6 +107,20 @@ function askBuild(args) {
 function askAuthor(args) {
 	inquirer.prompt(questions.author).then(function(answers) {
 		args.author = helper.titleCase(answers.author);
+		askTemplate(args);
+	});
+}
+
+function askTemplate(args) {
+	inquirer.prompt(questions.template).then(function(answers) {
+		args.template.theme = answers.template;
+		askSkin(args);
+	});
+}
+
+function askSkin(args) {
+	inquirer.prompt(questions.skin).then(function(answers) {
+		args.template.skin = answers.skin;
 		save(args);
 	});
 }
@@ -76,16 +136,17 @@ function save(args) {
 			date: date
 		},
         content = helper.format(stub, replace);
-
+    console.log('save 1' + sourcePath);
     fs.mkdirSync(sourcePath);
+    console.log('save 2');
     fs.mkdirSync(viewsPath);
-
+    console.log('save 3');
     fs.writeFile(indexPath, content, function(err) {
         if (err) {
             throw err;
         }
     });
-
+    console.log('save 4');
     fs.writeFile(config, JSON.stringify(args, null, 2), function(err) {
         if (err) {
             throw err;
@@ -94,4 +155,4 @@ function save(args) {
     helper.log.success('CopperSmith: Initialized!');
 }
 
-askSource();
+askName();

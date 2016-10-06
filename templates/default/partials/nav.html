@@ -16,11 +16,10 @@
 			</li>
 			{{/each}}
 			{{#each collections}}
-			{{#is @key '!==' 'home'}}
-			{{#is @key '!==' 'root'}}
+			{{#notroot @key}}
 			<li class="treeview">
 				<a href="#">
-					<i class="fa fa-book"></i> <span>{{titleCase @key}}</span>
+					<i class="fa fa-circle"></i> <span>{{titleCase @key}}</span>
 					<span class="pull-right-container">
 						<i class="fa fa-angle-left pull-right"></i>
 					</span>
@@ -36,8 +35,7 @@
 					{{/each}}
 				</ul>
 			</li>
-			{{/is}}
-			{{/is}}
+			{{/notroot}}
 			{{/each}}
 		</ul>
 	</section>
