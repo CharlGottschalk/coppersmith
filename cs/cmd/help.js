@@ -2,8 +2,8 @@
 'use strict';
 
 var path = require('path'),
-	helper = require('./lib/helper.js'),
-	pkg = require(path.join(__dirname, '../package.json'));
+	helper = require('../lib/helper.js'),
+	pkg = require(path.join(__dirname, '../../package.json'));
 
 helper.log.dark('====== Using CopperSmith ======');
 helper.log.dark('Version ' + pkg.version);

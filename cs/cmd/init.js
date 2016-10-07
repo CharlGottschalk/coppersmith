@@ -5,7 +5,7 @@ var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
 	slugify = require('slugify'),
-	helper = require('./lib/helper.js'),
+	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	pkg = require(path.join(cwd, 'package.json')),
 	defaultAuthor = pkg.author || '',
@@ -84,6 +84,16 @@ function askName() {
 				copyright_year: '2016',
 				copyright_url: 'http://domain.com',
 				copyright_display: answers.name
+			},
+			publish: {
+				to: 'ftp',
+				destination: 'public_html/destination/folder',
+				config: {
+					host: 'ftp.domain.com',
+					port: 21,
+					user: 'username',
+					password: 'password'
+				}
 			}
 		};
 		askSource(args);

@@ -12,7 +12,7 @@ var metalsmith = require('metalsmith'),
 	ignore = require('metalsmith-ignore'),
 	assets = require('metalsmith-assets'),
 	path = require('path'),
-	helper = require('./lib/helper.js'),
+	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
 	sourcePath = path.join(cwd, config.sourcePath, 'pages'),
@@ -23,7 +23,7 @@ var metalsmith = require('metalsmith'),
 	templatePartialsPath = path.join(templatePath, 'partials'),
 	templateAssetsPath = path.join(templatePath, 'assets');
 
-require('./lib/handlebars.js');
+require('../lib/handlebars.js');
 
 helper.log.dark('CopperSmith: Build Started...');
 

@@ -55,10 +55,18 @@ So when the site is rendered, the structure will look like the following:
 
 ## Snippets
 
-Including HTML in your markdown is easy using a handlebars helper. Just include the snippet helper in your markdown file. This is so we can keep HTML apart from markdown.
+Including HTML in your markdown is easy using the CopperSmith handlebars helper, `snippet`. Just include the snippet helper in your markdown file where you want the HTML snippet inserted. 
+
+This is so we can keep our markdown clean.
 
 ```
+## Example Markdown Title
+
+Example markdown text
+
 {{{snippet 'example'}}}
+
+## Another Markdown Title
 ```
 
 Each page will have their own `_snippets` folder in which all HTML snippets will be kept.
