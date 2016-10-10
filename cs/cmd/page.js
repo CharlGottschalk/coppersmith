@@ -121,7 +121,7 @@ function chooseCollection(args) {
 
 function askCollection(args) {
 	inquirer.prompt(questions.newCollection).then(function(answers) {
-		args.collection = slugify(answers.newCollection);
+		args.collection = slugify(answers.newCollection.toLowerCase());
 		args.collectionExists = false;
 		collections.push(answers.newCollection);
 		askDraft(args);

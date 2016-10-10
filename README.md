@@ -12,6 +12,8 @@ Using simple commands, you can quickly scaffold your site leaving you to simply 
 
 Once built, the site can be hosted anywhere static HTML content is supported, like [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). It's perfect for shared hosting and systems where you don't have account privileges.
 
+View a [demo here](http://charlgottschalk.github.io/coppersmith)
+
 ---
 
 The structure of a site is laid out to be easy to maintain and looks like the following:
