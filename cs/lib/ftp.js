@@ -1,194 +1,181 @@
 /* jshint node: true */
 'use strict';
 
-var path = require('path'),
-    fs = require('fs'),
-    Client = require('ftp'),
+var fs = require('fs'),
+    path = require('path'),
+    Ftp = require('ftp'),
+    async = require('async'),
+    inquirer = require('inquirer'),
     helper = require('./helper.js'),
     cwd = process.cwd(),
     config = require(path.join(cwd, 'coppersmith.json')),
-    settings = config.publish.config,
-    options = {
-        logging: 'basic'
-    },
-    c = new Client(),
+    publishConfig = config.publish.config,
+    ftp = new Ftp(),
     sourcePath = path.join(cwd, config.buildPath),
-    destinationPath = config.publish.destination,
-    destParts = [],
-    sourceFiles = [],
-    cdup = 0,
-    cancelled = false;
+    remotePath = config.publish.destination,
+    partialDirectories = [],
+    partialFilePaths = [],
+    transferredFileCount = 0,
+    question = {
+        type: 'password',
+        name: 'password',
+        message: 'Please type the password for ' + publishConfig.host
+    },
+    _self = this;
 
-function loadSourceFiles(dir) {
-    var files = fs.readdirSync(dir);
-
-    var i = files.length;
-    while(i--) {
-        if (fs.statSync(path.join(dir, files[i])).isDirectory()) {
-            loadSourceFiles(path.join(dir, files[i]));
-        } else {
-            var file = path.join(dir, files[i]),
-                index = ((file.lastIndexOf(config.buildPath) + config.buildPath.length) + 1),
-                base = file.substring(index);
-            sourceFiles.push(base);
-        } 
-    }
+// A utility function to remove lodash/underscore dependency
+// Checks an obj for a specified key
+function has (obj, key) {
+    return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-function changeToRootDirectory(cb) {
-    if (cancelled) {
-        return;
+// Get a list of source directories.
+exports.parseDirectories = function(startDir, result) {
+    var files;
+    var i;
+    var tmpPath;
+    var currFile;
+
+    // Initialize the `result` object if it is the first iteration
+    if (result === undefined) {
+        result = {};
+        result[path.sep] = [];
     }
-    while (cdup--) {
-        if(!cancelled) {
-            c.cdup(function(err) {
-                if (err)
-                {
-                    cancel(err);
-                }
-            });
+
+    // Iterate throught the contents of the `startDir` location of the current iteration
+    files = fs.readdirSync(startDir);
+    for (i = 0; i < files.length; i++) {
+        currFile = path.join(startDir, files[i]);
+
+        if (fs.lstatSync(currFile).isDirectory()) {
+            tmpPath = path.relative(sourcePath, currFile);
+
+            if (!has(result, tmpPath)) {
+                result[tmpPath] = [];
+                partialDirectories.push(tmpPath);
+            }
+            _self.parseDirectories(currFile, result);
+        } else {
+            tmpPath = path.relative(sourcePath, startDir);
+            if (!tmpPath.length) {
+                tmpPath = path.sep;
+            }
+
+            // check exclude rules
+            var partialFilePath = path.join(tmpPath, files[i]);
+            result[tmpPath].push(files[i]);
+            partialFilePaths.push(partialFilePath);
         }
     }
 
-    cb();
+    return result;
 }
 
-function changeDirectory(directory, make) {
-    helper.log.dark('Changing Directory to ' + directory);
-
-    return new Promise(function(resolve, reject) {
-        c.cwd(directory, function(err, currentDir) {
-            if(err) {
-                if (make) {
-                    makeDirectory(directory).then(function() {
-                        changeDirectory(directory, false).then(function() {
-                            resolve();
-                        }, function() {
-                            reject();
-                        });
-                    }, function() {
-                        reject();
-                    });
-                } else {
-                    reject();
-                }
-            } else {
-                helper.log.info('Changed directory to ' + directory);
-                resolve();
-            }
-        });
+// Make all remote directories if needed.
+exports.makeDirectories = function(cb) {
+    async.eachSeries(partialDirectories, _self.makeDirectory, function (err) {
+        cb(err);
     });
 }
 
-function changeDirectories(directories, index, cb) {
-    if (cancelled) {
-        return;
+// Make a remote directory if it doesn't exist.
+exports.makeDirectory = function(partialRemoteDirectory, cb) {
+    // add the remote path, and clean up the slashes
+    var fullRemoteDirectory = remotePath + '/' + partialRemoteDirectory.replace(/\\/gi, '/');
+    
+    // add leading slash if it is missing
+    if (fullRemoteDirectory.charAt(0) !== '/') {
+        fullRemoteDirectory = '/' + fullRemoteDirectory;
     }
-
-    changeDirectory(directories[index], true).then(function() {
-        index++;
-        if (index < directories.length) {
-            changeDirectories(directories, index, cb);
+    
+    // remove double // if present
+    fullRemoteDirectory = fullRemoteDirectory.replace(/\/\//g, '/');
+    ftp.cwd(fullRemoteDirectory, function(err) {
+        if (err) {
+            ftp.mkdir(fullRemoteDirectory, function(err) {
+                if(err) {
+                    helper.log.error('-- ERROR: ' + err);
+                    cb(err);
+                } else {
+                    _self.makeDirectory(partialRemoteDirectory, cb);
+                }
+            });
         } else {
             cb();
         }
-    }, function() {
-        cancel();
     });
 }
 
-function makeDirectory(directory) {
-    helper.log.dark('Making Directory ' + directory);
-
-    return new Promise(function(resolve, reject) {
-        c.mkdir(directory, function(err) {
-            if (err) {
-                reject();
-            } else {
-                helper.log.info('Made Directory ' + directory);
-                resolve();
-            }
-        });
-    });
-}
-
-function putFile(source, dest) {
-    if (cancelled) {
-        return;
-    }
-    c.put(source, dest, function(err) {
+// Upload a single file.
+exports.putFile = function(partialFilePath, cb) {
+    helper.log.dark('PUT: ' + partialFilePath);
+    var remoteFilePath = remotePath + '/' + partialFilePath;
+        remoteFilePath = remoteFilePath.replace(/\\/g, '/');
+        
+    var fullLocalPath = path.join(sourcePath, partialFilePath);
+    
+    var data = {
+        totalFileCount: partialFilePaths.length,
+        transferredFileCount: transferredFileCount,
+        percentComplete: Math.round((transferredFileCount / partialFilePaths.length) * 100),
+        filename: partialFilePath
+    };
+    
+    ftp.put(fullLocalPath, remoteFilePath, function (err) {
         if (err) {
-            cancel(err);
-        };
+            helper.log.error('PUT: ' + partialFilePath);
+            helper.log.error('-- ERROR: ' + err);
+            cb(err);
+        } else {
+            helper.log.success('PUT: ' + partialFilePath);
+            transferredFileCount++;
+            data.transferredFileCount = transferredFileCount;
+            cb();
+        }
     });
 }
 
-function putSourceFiles(cb) {
-    if (cancelled) {
-        return;
-    }
-    var i = sourceFiles.length;
+// Required function to start the publishing, called by [copper publish] command.
+exports.deploy = function(cb) {
+    helper.log.info('Publishing not ready yet.');
 
-    while (i--)
-    {
-        changeToRootDirectory(function() {
-            if (!cancelled) {
-                var file = sourceFiles[i],
-                    parts = file.split(path.sep);
-
-                helper.log.dark('CopperSmith: Publishing File ' + file);
-
-                if (parts.length > 1) {
-                    for (var x = 0; x < parts.length - 1; x++) {
-                        changeDirectory(parts[x], true);
-                        cdup++;
-                    }
-                    putFile(path.join(sourcePath, sourceFiles[i]), parts[parts.length - 1]);
-                } else {
-                    putFile(path.join(sourcePath, sourceFiles[i]), parts[0]);
-                } 
-            }
+    if (!publishConfig.password) {
+        inquirer.prompt(question).then(function(answers) {
+            publishConfig.password = answers.password;
+            _self.start(publishConfig, cb);
         });
-    }
-
-    cb();
-}
-
-function connect() {
-    c.connect(settings);
-}
-
-function cancel(err) {
-    cancelled = true;
-    helper.log.error(err);
-    c.end();
-    helper.log.dark('CopperSmith: Publishing Cancelled.');
-}
-
-function stop() {
-    if (!cancelled) {
-        c.end();
-        helper.log.success('CopperSmith: Publishing Complete.');
+    } else {
+        _self.start(publishConfig, cb);
     }
 }
- 
-c.on('ready', function() {
-    var destParts = destinationPath.split('/');
 
-    changeDirectories(destParts, 0, function() {
-        // putSourceFiles(function() {
-        //     stop();
-        // });
-        console.log('end');
+// Starts the publishing.
+exports.start = function(config, cb) {
+
+    var conf = {
+        host: config.host,
+        port: config.port,
+        user: config.username,
+        password: config.password
+    };
+
+    var toTransfer = _self.parseDirectories(sourcePath);
+
+    ftp.on('ready', function() {
+        _self.makeDirectories(function(err) {
+            if (err) {
+                helper.log.error('-- ERROR: ' + err);
+                cb(err);
+            } else {
+                ftp.cwd('/', function(err) {
+                    async.eachSeries(partialFilePaths, _self.putFile, function (err) {
+                        ftp.end();
+                        cb(err);
+                    });
+                });
+            }
+        })
     });
 
-    // c.list(function(err, list) {
-    //     if (err) throw err;
-    //     console.dir(list);
-    //     c.end();
-    // });
-});
-
-loadSourceFiles(sourcePath);
-
-connect();
+    ftp.connect(conf);
+}

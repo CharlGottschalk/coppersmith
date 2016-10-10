@@ -91,7 +91,7 @@ function askName() {
 				config: {
 					host: 'ftp.domain.com',
 					port: 21,
-					user: 'username',
+					username: 'username',
 					password: 'password'
 				}
 			}
@@ -146,17 +146,13 @@ function save(args) {
 			date: date
 		},
         content = helper.format(stub, replace);
-    console.log('save 1' + sourcePath);
     fs.mkdirSync(sourcePath);
-    console.log('save 2');
     fs.mkdirSync(viewsPath);
-    console.log('save 3');
     fs.writeFile(indexPath, content, function(err) {
         if (err) {
             throw err;
         }
     });
-    console.log('save 4');
     fs.writeFile(config, JSON.stringify(args, null, 2), function(err) {
         if (err) {
             throw err;

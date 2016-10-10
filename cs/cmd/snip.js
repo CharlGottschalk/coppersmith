@@ -11,10 +11,8 @@ var inquirer = require('inquirer'),
 	docsPath = path.join(cwd, config.sourcePath, 'pages'),
 	snippets = [],
 	collections = [
-		'home',
+		'global',
 		new inquirer.Separator()
-	],
-	pages = [
 	],
 	snippets = [
 	],
@@ -29,12 +27,6 @@ var inquirer = require('inquirer'),
 			name: 'collection',
 			message: 'In which collection?',
 			choices: collections
-		},
-		page: {
-			type: 'list',
-			name: 'page',
-			message: 'For what page?',
-			choices: pages
 		},
 		another: {
 			type: 'confirm',
@@ -54,27 +46,13 @@ function loadCollections() {
 	}
 }
 
-function loadPages(args) {
-	pages = [];
-	var dir = path.join(docsPath, args.collection);
-	var dirs = fs.readdirSync(dir).filter(function(file) {
-		return fs.statSync(path.join(dir, file)).isDirectory();
-	});
-	var i = dirs.length;
-	while(i--) {
-		pages.push(dirs[i]);
-	}
-	questions.page.choices = pages;
-	choosePage(args);
-}
-
 function askTitle() {
 	helper.log.dark('CopperSmith: Snippet');
 	helper.log.info('Please answer the following questions:');
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
 			slug: slugify(answers.title),
-			collection: 'home',
+			collection: 'global',
 			page: '',
 			paths: {}
 		};
@@ -85,17 +63,6 @@ function askTitle() {
 function chooseCollection(args) {
 	inquirer.prompt(questions.collection).then(function(answers) {
 		args.collection = slugify(answers.collection);
-		if (answers.collection === 'home') {
-			save(args);
-		} else {
-			loadPages(args);
-		}
-	});
-}
-
-function choosePage(args) {
-	inquirer.prompt(questions.page).then(function(answers) {
-		args.page = answers.page;
 		save(args);
 	});
 }
@@ -113,33 +80,33 @@ function askAnother() {
 function getPaths(args) {
 	var collectionPath = '',
 		snippetPath = '_snippets';
-	if (args.collection !== 'home') {
+	if (args.collection !== 'global') {
 		collectionPath = args.collection;
-		snippetPath = path.join(args.page, '_snippets');
 	}
 	var paths = {
 		root: docsPath,
 		collection: path.join(docsPath, collectionPath),
 		snippet: path.join(docsPath, collectionPath, snippetPath)
 	};
+	
 	return paths;
 }
 
 function save(args) {
 	var paths = getPaths(args),
 		file = path.join(paths.snippet, args.slug + '.html'),
-        snipStub = helper.getStub('snippet.html'),
-        exists = false;
-    try {
-		exists = fs.statSync(paths.snippet);
-	} catch(e) {
-		fs.mkdirSync(paths.snippet);
-	}
+        snipStub = helper.getStub('snippet.html');
+
+    if (!fs.existsSync(paths.snippet)) {
+    	fs.mkdirSync(paths.snippet);
+    }
+
     fs.writeFile(file, snipStub, function(err) {
         if (err) {
             throw err;
         }
     });
+
     args.paths = paths;
     snippets.push(args);
     helper.log.dark(args.slug + ' created!');
@@ -151,7 +118,7 @@ function complete() {
 	helper.log.success('CopperSmith: Complete!');
 	helper.log.info('The following snippets were created:');
 	while(i--) {
-		helper.log.mag('  > ' + snippets[i].title + ' at ' + snippets[i].paths.page);
+		helper.log.mag('  > ' + snippets[i].title + ' at ' + snippets[i].paths.collection);
 	}
 }
 

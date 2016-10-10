@@ -69,7 +69,7 @@ var inquirer = require('inquirer'),
 		},
 	};
 
-function loadCollections() {
+function loadCollections(cb) {
 	var dirs = fs.readdirSync(docsPath).filter(function(file) {
 		return fs.statSync(path.join(docsPath, file)).isDirectory() && !file.startsWith('_');
 	});
@@ -80,6 +80,9 @@ function loadCollections() {
 	collections.push(new inquirer.Separator());
 	while(i--) {
 		collections.push(dirs[i]);
+	}
+	if (typeof cb === 'Function') {
+		cb();
 	}
 }
 
@@ -92,7 +95,7 @@ function askTitle() {
 			author: author,
 			date: date,
 			draft: true,
-			slug: slugify(answers.title),
+			slug: slugify(answers.title.toLowerCase()),
 			collection: 'root',
 			collectionExists: false,
 			snippets: [],
@@ -120,6 +123,7 @@ function askCollection(args) {
 	inquirer.prompt(questions.newCollection).then(function(answers) {
 		args.collection = slugify(answers.newCollection);
 		args.collectionExists = false;
+		collections.push(answers.newCollection);
 		askDraft(args);
 	});
 }
@@ -183,26 +187,21 @@ function getPaths(args) {
 	var paths = {
 		root: docsPath,
 		collection: path.join(docsPath, collectionPath),
-		page: path.join(docsPath, collectionPath, args.slug),
-		snips: path.join(docsPath, collectionPath, args.slug, '_snippets')
+		snips: path.join(docsPath, collectionPath, '_snippets')
 	};
 	return paths;
 }
 
 function save(args) {
 	var paths = getPaths(args),
-		file = path.join(paths.page, args.slug + '.md'),
+		file = path.join(paths.collection, args.slug + '.md'),
         docStub = helper.getStub('doc.md'),
-        content = helper.format(docStub, args),
-        exists = false;
+        content = helper.format(docStub, args);
     args.paths = paths;
     pages.push(args);
-    try {
-		exists = fs.statSync(paths.collection);
-	} catch(e) {
-		fs.mkdirSync(paths.collection);
-	}
-    fs.mkdirSync(paths.page);
+    if (!fs.existsSync(paths.collection)) {
+    	fs.mkdirSync(paths.collection);
+    }
     fs.writeFile(file, content, function(err) {
         if (err) {
             throw err;
@@ -218,7 +217,7 @@ function save(args) {
             fs.writeFile(snip, snipStub);
         }
     }
-    helper.log.dark(args.title + ' created!');
+    helper.log.dark('Page ' + args.title + ' created!');
     askAnother();
 }
 
@@ -227,7 +226,7 @@ function complete() {
 	helper.log.success('CopperSmith: Complete!');
 	helper.log.info('The following pages were created:');
 	while(i--) {
-		helper.log.mag('  > ' + pages[i].title + ' at ' + pages[i].paths.page);
+		helper.log.mag('  > ' + pages[i].title + ' at ' + pages[i].paths.collection);
 	}
 }
 

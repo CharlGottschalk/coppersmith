@@ -1,11 +1,6 @@
 # CopperSmith
 #### A simple static site builder using markdown
-![semver 0.1.4](https://img.shields.io/badge/semver-0.1.4-red.svg)
-
----
-Please note, that this project is in active development and though it is in a wroking state, I would not recommend you use it for a production site just yet. Feel free however to test it out.
-
-Please be aware that certain things might break with each new release before v1.0.0
+![semver 1.0.0](https://img.shields.io/badge/semver-1.0.0-green.svg)
 
 ---
 
@@ -25,21 +20,17 @@ The structure of a site is laid out to be easy to maintain and looks like the fo
 - docs/
     - _snippets
     - getting-started/
-        - intro/
-            - _snippets/
-            - intro.md
+        - _snippets/
+        - intro.md
     - root/
-        - welcome/
-            - _snippets/
-            - welcome.md
+        - _snippets/
+        - welcome.md
     - index.md
 ```
 
 Apart from the home page (`docs/index.md`), all other pages are contained in folders / collections. The `root` collection will contain the root pages i.e. **domain.com/page**. Any other collections will contain the pages for sub-pages i.e. **domain.com/collection/page**.
 
-All markdown files are stored in a folder of the same name as the page i.e. `docs/getting-started/intro/intro.md`.
-
-CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `getting-started/intro/intro.md` into `getting-started/intro/index.html`)
+CopperSmith applies a custom permalink pattern to files, and renames them so that they're nested properly for static sites (converting `getting-started/intro.md` into `getting-started/intro/index.html`)
 
 So when the site is rendered, the structure will look like the following:
 
@@ -69,9 +60,9 @@ Example markdown text
 ## Another Markdown Title
 ```
 
-Each page will have their own `_snippets` folder in which all HTML snippets will be kept.
+Each collection will have their own `_snippets` folder in which all HTML snippets will be kept.
 
-The above code will look for a snippet in the page's `_snippets` folder called `example.html`. If it doesn't find it, it will look for the snippet in the global `docs/_snippets` folder.
+The above code will look for a snippet in the page's collection `_snippets` folder called `example.html`. If it doesn't find it, it will look for the snippet in the global `docs/_snippets` folder.
 
 ## Templates
 
@@ -118,7 +109,7 @@ Add a new page to your site.
 copper snip
 ```
 
-Add a snippet to an existing page.
+Add a snippet to an existing collection.
 
 ```
 copper build
@@ -130,11 +121,23 @@ Generate your static site into your chosen build folder.
 copper publish
 ```
 
-Publish your site to an FTP server. _Coming soon_
+Publish your site to a public server.
+
+_Currently, only plain FTP is supported_
+
+---
+
+View the [project page](http://charlgottschalk.co.za/projects/coppersmith) for [documentation](http://charlgottschalk.co.za/projects/coppersmith/docs).
+
+If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/coppersmith/docs/contributing).
+
+---
 
 ## Dependencies
 
 [chalk](https://www.npmjs.com/package/chalk) v1.1.3
+
+[ftp](https://www.npmjs.com/package/ftp) v0.3.10
 
 [handlebars](https://www.npmjs.com/package/handlebars) v4.0.5
 
@@ -163,8 +166,12 @@ Publish your site to an FTP server. _Coming soon_
 [pretty-error](https://www.npmjs.com/package/pretty-error) v2.0.0
 
 [slugify](https://www.npmjs.com/package/slugify) v1.0.2
+
+## Credits
+
+**Default** theme based on the awesome [AdminLTE](https://almsaeedstudio.com/preview) by [Abdullah Almsaeed](https://almsaeedstudio.com/)
     
 ## To Do:
 
 * Add tests
-* Finish publish command
+* Finish documentation
