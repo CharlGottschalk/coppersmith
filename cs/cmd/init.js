@@ -75,6 +75,7 @@ function askName() {
 			author: defaultAuthor,
 			sourcePath: '',
 			buildPath: '',
+			base: 'http://domain.com',
 			template: {
 				path: '',
 				theme: 'default',

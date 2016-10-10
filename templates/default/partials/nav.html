@@ -2,14 +2,14 @@
 	<section class="sidebar">
 		<ul class="sidebar-menu">
 			<li>
-				<a href="/">
+				<a href="{{config 'base'}}">
 					<i class="fa fa-circle-o"></i> 
 					<span>Home</span>
 				</a>
 			</li>
 			{{#each collections.root}}
 			<li>
-				<a href="/{{path}}">
+				<a href="{{config 'base'}}/{{path}}">
 					<i class="fa fa-circle-o"></i> 
 					<span>{{title}}</span>
 				</a>
@@ -27,7 +27,7 @@
 				<ul class="treeview-menu">
 					{{#each this}}
 					<li>
-						<a href="/{{path}}">
+						<a href="{{config 'base'}}/{{path}}">
 							<i class="fa fa-circle-o"></i> 
 							<span>{{title}}</span>
 						</a>

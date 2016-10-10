@@ -1,6 +1,6 @@
 {
   "name": "coppersmith",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple static site builder using markdown",
   "main": "cs/index.js",
   "scripts": {
