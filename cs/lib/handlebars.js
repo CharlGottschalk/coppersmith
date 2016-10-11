@@ -3,6 +3,7 @@
 
 var path = require('path'),
 	fs = require('fs'),
+    url = require('url-join'),
 	handlebars = require('handlebars'),
 	helper = require('./helper.js'),
     cwd = process.cwd(),
@@ -40,16 +41,7 @@ handlebars.registerHelper('notroot', function (key, options) {
 });
 
 handlebars.registerHelper('asset', function (name, context) {
-    var collection = context.data.root.collection[0],
-        url = '';
-    if (collection === 'home') {
-        url = 'assets/' + name;
-    } else if (collection === 'root') {
-        url = '../assets/' + name;
-    } else {
-        url = '../../assets/' + name;
-    }
-    return url;
+    return url(config.base, 'assets', name);
 });
 
 handlebars.registerHelper('snippet', function (name, context) {

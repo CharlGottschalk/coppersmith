@@ -149,16 +149,8 @@ function save(args) {
         content = helper.format(stub, replace);
     fs.mkdirSync(sourcePath);
     fs.mkdirSync(viewsPath);
-    fs.writeFile(indexPath, content, function(err) {
-        if (err) {
-            throw err;
-        }
-    });
-    fs.writeFile(config, JSON.stringify(args, null, 2), function(err) {
-        if (err) {
-            throw err;
-        }
-    });
+    fs.writeFileSync(indexPath, content);
+    fs.writeFileSync(config, JSON.stringify(args, null, 2));
     helper.log.success('CopperSmith: Initialized!');
 }
 
