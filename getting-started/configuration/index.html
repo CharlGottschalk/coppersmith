@@ -6,14 +6,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Configuration</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <link type="text/css" rel="stylesheet" href="../assets/css/bootstrap.min.css">
+        <link type="text/css" rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     	<!-- Ionicons -->
     	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-        <link type="text/css" rel="stylesheet" href="../assets/css/AdminLTE.css">
-        <link type="text/css" rel="stylesheet" href="../assets/css/prism.css">
-        <link rel="stylesheet" href="../assets/css/skins/skins-all.css">
+        <link type="text/css" rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/AdminLTE.css">
+        <link type="text/css" rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/prism.css">
+        <link rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/skins/skins-all.css">
     
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,7 +27,7 @@
 
             <header class="main-header">
             	<!-- Logo -->
-            	<a href="/coppersmith" class="logo">
+            	<a href="/" class="logo">
             		<!-- mini logo for sidebar mini 50x50 pixels -->
             		<!--<span class="logo-mini"><b>C</b>S</span>-->
             		<!-- logo for regular state and mobile devices -->
@@ -48,29 +48,93 @@
             	<section class="sidebar">
             		<ul class="sidebar-menu">
             			<li>
-            				<a href="/coppersmith">
+            				<a href="http://charlgottschalk.github.io/coppersmith">
             					<i class="fa fa-circle-o"></i> 
             					<span>Home</span>
             				</a>
             			</li>
             			<li>
-            				<a href="/coppersmith/configuration">
+            				<a href="http://charlgottschalk.github.io/coppersmith/dependencies">
             					<i class="fa fa-circle-o"></i> 
-            					<span>Configuration</span>
+            					<span>Dependencies</span>
+            				</a>
+            			</li>
+            			<li>
+            				<a href="http://charlgottschalk.github.io/coppersmith/installation">
+            					<i class="fa fa-circle-o"></i> 
+            					<span>Installation</span>
             				</a>
             			</li>
             			<li class="treeview">
             				<a href="#">
-            					<i class="fa fa-circle"></i> <span>General</span>
+            					<i class="fa fa-circle"></i> <span>Getting-Started</span>
             					<span class="pull-right-container">
             						<i class="fa fa-angle-left pull-right"></i>
             					</span>
             				</a>
             				<ul class="treeview-menu">
             					<li>
-            						<a href="/coppersmith/general/page-settings">
+            						<a href="http://charlgottschalk.github.io/coppersmith/getting-started/commands">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Commands</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/getting-started/configuration">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Configuration</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/getting-started/page-settings">
             							<i class="fa fa-circle-o"></i> 
             							<span>Page Settings</span>
+            						</a>
+            					</li>
+            				</ul>
+            			</li>
+            			<li class="treeview">
+            				<a href="#">
+            					<i class="fa fa-circle"></i> <span>Templates</span>
+            					<span class="pull-right-container">
+            						<i class="fa fa-angle-left pull-right"></i>
+            					</span>
+            				</a>
+            				<ul class="treeview-menu">
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/assets">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Assets</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/helpers">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Helpers</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/layout">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Layout</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/navigation">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Navigation</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/partials">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Partials</span>
+            						</a>
+            					</li>
+            					<li>
+            						<a href="http://charlgottschalk.github.io/coppersmith/templates/setup">
+            							<i class="fa fa-circle-o"></i> 
+            							<span>Setup</span>
             						</a>
             					</li>
             				</ul>
@@ -93,6 +157,7 @@
   &quot;author&quot;: &quot;Author Name (http://domain.com)&quot;,
   &quot;sourcePath&quot;: &quot;docs&quot;,
   &quot;buildPath&quot;: &quot;build&quot;,
+  &quot;base&quot;: &quot;http://domain.com&quot;,
   &quot;template&quot;: {
     &quot;path&quot;: &quot;&quot;,
     &quot;theme&quot;: &quot;default&quot;,
@@ -121,6 +186,7 @@
 <li><code>author</code>: The default author of the site.</li>
 <li><code>sourcePath</code>: The path relative to your project root where your site will be created.</li>
 <li><code>buildPath</code>: The path relative to your project root where your site will be generated to.</li>
+<li><code>base</code>: The base url of your site. CopperSmith uses this to correctly format navigation urls.</li>
 <li><code>template</code>: Template specific configuration.<ul>
 <li><code>path</code>: The path relative to your project root where your template is stored.</li>
 <li><code>theme</code>: The theme to use. The theme is just a directory of the same name stored inside the template <code>path</code>.</li>
@@ -144,16 +210,19 @@
             </div>
 
             <footer class="main-footer">
+            	<div class="pull-right hidden-xs">
+            		Made with <a href="https://github.com/CharlGottschalk/coppersmith">Copper<strong>Smith</strong></a>
+            	</div>
             	<strong>
-            		Copyright © 2016 <a href="http://domain.com">CopperSmith</a>.
+            		Copyright © 2016 <a href="http://charlgottschalk.co.za">Charl Gottschalk</a>.
             	</strong> 
             	All rights reserved.
             </footer>            
         </div>
 
-        <script src="../assets/js/jquery-2.2.3.min.js"></script>
-        <script src="../assets/js/bootstrap.min.js"></script>
-        <script src="../assets/js/prism.js"></script>
-        <script src="../assets/js/app.min.js"></script>        
+        <script src="http://charlgottschalk.github.io/coppersmith/assets/js/jquery-2.2.3.min.js"></script>
+        <script src="http://charlgottschalk.github.io/coppersmith/assets/js/bootstrap.min.js"></script>
+        <script src="http://charlgottschalk.github.io/coppersmith/assets/js/prism.js"></script>
+        <script src="http://charlgottschalk.github.io/coppersmith/assets/js/app.min.js"></script>        
     </body>
 </html>

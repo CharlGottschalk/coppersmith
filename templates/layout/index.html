@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
+        <title>Layout</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -148,15 +148,10 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/badge/semver-1.1.0-green.svg" alt="semver 1.1.0"></p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p>This very site has been created with CopperSmith.</p>
+                            <h1 id="templates-layout">Templates - Layout</h1>
+<p>CopperSmith requires a <code>master.html</code> layout which is used to render each page during <code>copper build</code>.</p>
+<p>A default <code>[theme]/layouts/master.html</code> file will be created with the <code>copper theme</code> command. You should customize this file to your needs however you see fit.</p>
+<p>By default, this file is used to include the neccessary <a href="templates-partials">partials</a> for generating your pages.</p>
 
 
                         </div>

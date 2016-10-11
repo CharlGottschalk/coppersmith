@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Home</title>
+        <title>Setup</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="http://charlgottschalk.github.io/coppersmith/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -148,15 +148,31 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/badge/semver-1.1.0-green.svg" alt="semver 1.1.0"></p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p>This very site has been created with CopperSmith.</p>
+                            <h1 id="templates-setup">Templates - Setup</h1>
+<p>Before you can use a custom template, you need to setup a directory in which your themes will be kept.</p>
+<p>To help you, CopperSmith includes a handy command to quickly scaffold the required directory structure for you.</p>
+<p>In your terminal, run:</p>
+<pre><code> copper theme
+</code></pre><p>This will create a <code>templates</code> folder inside your <code>sourcePath</code> and a theme folder with the name you chose during the command questions.</p>
+<p>The command will create the following directory structure:</p>
+<pre><code>- [sourcePath]/templates
+    - [theme]
+        - assets
+            - css
+                - app.css
+            - js
+                - app.js
+        - layouts
+            - master.html
+        - partials
+            - footer.html
+            - head.html
+            - nav.html
+            - scripts.html
+</code></pre><p>Use the <code>assets</code> folder to keep all your site assets such as images, fonts, styles etc. During <code>copper build</code> the entire assets folder will be copied to your build directory. More over at <a href="templates-assets">assets</a></p>
+<p>Your theme <strong>MUST</strong> have a <code>/layouts/master.html</code> file. CopperSmith uses this file to render each page of your site. More over at <a href="templates-layouts">layouts</a></p>
+<p>The <code>partials</code> directory is where you will keep your page “pieces” that will be included in the <code>master.html</code> layout. More over at <a href="templates-partials">partials</a></p>
+<p><em>By default, the generated theme is setup to use <a href="https://jquery.com/">jQuery</a>, <a href="http://getbootstrap.com/">Twitter Bootstrap</a> and <a href="http://fontawesome.io/">FontAwesome</a> inside the <code>/partials/head.html</code> and <code>partials/scripts.html</code> files.</em></p>
 
 
                         </div>
