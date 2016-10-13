@@ -83,6 +83,12 @@ In your terminal, run:
 npm install --save coppersmith
 ```
 
+or if you're using [Yarn](https://yarnpkg.com/)
+
+```
+$ yarn add coppersmith
+```
+
 #### Initialize
 
 Once installed, in your terminal, run:
