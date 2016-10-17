@@ -1,6 +1,6 @@
 {
   "name": "coppersmith",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple static site builder using markdown",
   "main": "cs/index.js",
   "scripts": {
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/charlgottschalk/doc-smith.git"
+    "url": "git+https://github.com/charlgottschalk/coppersmith.git"
   },
   "keywords": [
     "coppersmith",
@@ -55,7 +55,7 @@
   "bugs": {
     "url": "https://github.com/charlgottschalk/coppersmith/issues"
   },
-  "homepage": "https://github.com/charlgottschalk/coppersmith#readme",
+  "homepage": "http://charlgottschalk.co.za/projects/coppersmith",
   "bin": {
     "copper": "./cs/cmd/index.js"
   },
