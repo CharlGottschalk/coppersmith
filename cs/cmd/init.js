@@ -7,9 +7,9 @@ var inquirer = require('inquirer'),
 	slugify = require('slugify'),
 	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
-	pkg = require(path.join(cwd, 'package.json')),
-	defaultAuthor = pkg.author || '',
-	date = helper.getDate();
+	defaultAuthor = '',
+	date = helper.getDate(),
+	pkg;
 
 var templates = [
 		'default'
@@ -32,7 +32,7 @@ var templates = [
 		name: {
 			type: 'input',
 			name: 'name',
-			message: 'What is your site called?',
+			message: 'What is your site called?'
 		},
 		source: {
 			type: 'input',
@@ -63,8 +63,23 @@ var templates = [
 			name: 'skin',
 			message: 'What skin would you like?',
 			choices: skins
-		}
+		},
+		base: {
+			type: 'input',
+			name: 'base',
+			message: 'What is your base domain?',
+			default: 'http://domain.com'
+		},
 	};
+
+function start() {
+	helper.log.dark('CopperSmith: Initialize');
+	if (fs.existsSync(path.join(cwd, 'package.json'))) {
+    	pkg = require(path.join(cwd, 'package.json'));
+    	defaultAuthor = pkg.author || '';
+    }
+	askName();
+}
 
 function askName() {
 	helper.log.dark('CopperSmith: Initialize');
@@ -118,6 +133,14 @@ function askBuild(args) {
 function askAuthor(args) {
 	inquirer.prompt(questions.author).then(function(answers) {
 		args.author = helper.titleCase(answers.author);
+		askDomain(args);
+	});
+}
+
+function askDomain(args) {
+	inquirer.prompt(questions.base).then(function(answers) {
+		args.base = answers.base.toLowerCase();
+		args.options.copyright_url = answers.base.toLowerCase();
 		askTemplate(args);
 	});
 }

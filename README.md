@@ -1,6 +1,6 @@
 # CopperSmith
 #### A simple static site builder using markdown
-![semver 1.1.1](https://img.shields.io/badge/semver-1.1.1-green.svg)
+![semver 1.2.0](https://img.shields.io/badge/semver-1.2.0-green.svg)
 
 ---
 
@@ -80,13 +80,13 @@ Read the [templating docs](http://charlgottschalk.co.za/projects/coppersmith/doc
 
 In your terminal, run:
 ```
-npm install --save coppersmith
+npm install -g coppersmith
 ```
 
 or if you're using [Yarn](https://yarnpkg.com/)
 
 ```
-$ yarn add coppersmith
+$ yarn global add coppersmith
 ```
 
 #### Initialize
@@ -188,6 +188,3 @@ If you would like to contribute to the project, please read [contributing](http:
 ## Credits
 
 **Default** theme based on the awesome [AdminLTE](https://almsaeedstudio.com/preview) by [Abdullah Almsaeed](https://almsaeedstudio.com/)
-
-## To Do:
-- Add sorting
