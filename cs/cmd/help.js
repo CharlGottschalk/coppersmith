@@ -25,6 +25,3 @@ helper.log.info('Quickly scaffold a directory for a custom  template');
 helper.log.dark('-------------------------------');
 helper.log.success('$ copper publish');
 helper.log.info('Publish to FTP server');
-helper.log.dark('-------------------------------');
-helper.log.success('$ copper help');
-helper.log.info('Display help');
