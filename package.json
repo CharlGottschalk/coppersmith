@@ -1,14 +1,15 @@
 {
   "name": "coppersmith",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Simple static site builder using markdown",
-  "main": "cs/index.js",
+  "main": "cs/cmd/index.js",
   "scripts": {
     "test": "test"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jshint": "^2.0.1",
+    "gulp-line-ending-corrector": "^1.0.1",
     "jshint": "^2.9.3",
     "jshint-stylish": "^2.2.1",
     "laravel-elixir": "^6.0.0-11"

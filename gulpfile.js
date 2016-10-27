@@ -1,26 +1,26 @@
 /*******************************
-            Set-up
+Set-up
 *******************************/
 
-var
-  gulp         = require('gulp'),
-  elixir = require('laravel-elixir');
-  // linting
-  jshint = require('gulp-jshint'),
-  stylish = require('jshint-stylish'),
-  packageJSON = require('./package.json'),
-  jshintConf = packageJSON.jshintConf;
+var gulp = require('gulp'),
+    elixir = require('laravel-elixir'),
+    lec = require('gulp-line-ending-corrector'),
+    // linting
+    jshint = require('gulp-jshint'),
+    stylish = require('jshint-stylish'),
+    packageJSON = require('./package.json'),
+    jshintConf = packageJSON.jshintConf;
 
 /*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
- |
- */
+|--------------------------------------------------------------------------
+| Elixir Asset Management
+|--------------------------------------------------------------------------
+|
+| Elixir provides a clean, fluent API for defining some basic Gulp tasks
+| for your Laravel application. By default, we are compiling the Sass
+| file for our application, as well as publishing vendor resources.
+|
+*/
 
 elixir(function(mix) {
     mix.less('./templates/default/less/AdminLTE.less', './templates/default/assets/css');
@@ -39,13 +39,27 @@ elixir(function(mix) {
     mix.less('./templates/default/less/skins/*.less', './templates/default/assets/css/skins/skins-all.css');
 });
 
+gulp.task('lec', function() {
+    gulp.src('cs/cmd/*.js')
+    .pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}));
+    gulp.src('cs/lib/*.js')
+    .pipe(lec({verbose:true, eolc: 'LF', encoding:'utf8'}));
+});
+
 /*--------------
-      Lint
+Lint
 ---------------*/
 
-gulp.task('lint', function() {
+gulp.task('lint-cmd', function() {
     jshintConf.lookup = false;
-    return gulp.src('cs/*.js')
-        .pipe(jshint(jshintConf))
-        .pipe(jshint.reporter(stylish));
+    return gulp.src('cs/cmd/*.js')
+    .pipe(jshint(jshintConf))
+    .pipe(jshint.reporter(stylish));
+});
+
+gulp.task('lint-lib', function() {
+    jshintConf.lookup = false;
+    return gulp.src('cs/lib/*.js')
+    .pipe(jshint(jshintConf))
+    .pipe(jshint.reporter(stylish));
 });

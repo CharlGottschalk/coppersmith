@@ -17,7 +17,7 @@ var commands = {
 }
 
 if (!process.argv[2]) {
-	require('./init.js');
+	require('./help.js');
 } else {
 	var command = commands[process.argv[2].toLowerCase()];
 	if (command !== undefined) {
