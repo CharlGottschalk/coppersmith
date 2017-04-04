@@ -52,9 +52,9 @@ handlebars.registerHelper('snippet', function (name, context) {
 	if (collection === 'home') {
 		snippet = path.join(cwd, config.sourcePath, 'pages', '_snippets', name + '.html');
 	} else if (collection === 'root') {
-        snippet = path.join(cwd, config.sourcePath, 'pages', page, '_snippets', name + '.html');
+        snippet = path.join(cwd, config.sourcePath, 'pages', 'root', '_snippets', name + '.html');
     } else {
-		snippet = path.join(cwd, config.sourcePath, 'pages', collection, page, '_snippets', name + '.html');
+		snippet = path.join(cwd, config.sourcePath, 'pages', collection, '_snippets', name + '.html');
 		try {
 			exists = fs.statSync(snippet);
 		} catch(e) {
