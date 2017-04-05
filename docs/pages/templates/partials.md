@@ -10,9 +10,9 @@ sort: 2
 
 # Partials
 
-You might like to split your `[sourcePath]/theme/layouts/master.html` into easier to maintain parts. For this, we use partials.
+You might like to split your `[sourcePath]/templates/[theme]/layouts/master.html` into easier to maintain parts. For this, we use partials.
 
-When you run the `copper theme` command, CopperSmith will create a partials folder at `[sourcePath]/theme/partials` with a few ready made partials.
+When you run the `copper theme` command, CopperSmith will create a partials folder at `[sourcePath]/templates/[theme]/partials` with a few ready made partials.
 
 You may replace these partials with your own.
 
@@ -22,7 +22,7 @@ To include and render partials inside other partials or the `master.html` layout
 
 ##### Example
 
-The following code snippet will look for and include the `[sourcePath]/theme/partials/nav.html` partial.
+The following code snippet will look for and include the `[sourcePath]/templates/[theme]/partials/nav.html` partial.
 
 ```
 {{> nav}}

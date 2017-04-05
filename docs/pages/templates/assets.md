@@ -10,7 +10,7 @@ sort: 4
 
 # Assets
 
-All your site's assets will be kept in the required `[sourcePath]/[theme]/assets` folder. 
+All your site's assets will be kept in the required `[sourcePath]/templates/[theme]/assets` folder. 
 
 You may structure this folder however you wish. By default CopperSmith will create two folders `/css` and `/js` to keep your style sheets (.css) and JavaScript (.js). 
 

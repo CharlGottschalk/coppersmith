@@ -12,7 +12,8 @@
   "options": {
     "copyright_year": "2017",
     "copyright_url": "http://charlgottschalk.co.za",
-    "copyright_display": "Charl Gottschalk"
+    "copyright_display": "Charl Gottschalk",
+    "smlName": "C<strong>S</strong>"
   },
   "publish": {
     "to": "ftp",

@@ -12,6 +12,6 @@ sort: 1
 
 CopperSmith requires a `master.html` layout which is used to render each page during `copper build`.
 
-A default `[sourcePath]/theme/layouts/master.html` file will be created with the `copper theme` command. You should customize this file to your needs however you see fit.
+A default `[sourcePath]/templates/[theme]/layouts/master.html` file will be created with the `copper theme` command. You should customize this file to your needs however you see fit.
 
 By default, this file is used to include the neccessary [partials](/coppersmith/templates/partials/) for generating your pages.
