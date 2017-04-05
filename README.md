@@ -1,5 +1,7 @@
 # CopperSmith
+
 #### A simple static site builder using markdown
+
 ![release](https://img.shields.io/github/release/charlgottschalk/coppersmith.svg) ![npm](https://img.shields.io/npm/v/coppersmith.svg) ![downloads](https://img.shields.io/npm/dt/coppersmith.svg)
 
 ---

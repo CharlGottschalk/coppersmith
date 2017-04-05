@@ -48,13 +48,13 @@ var inquirer = require('inquirer'),
 			type: 'confirm',
 			name: 'snippetA',
 			message: 'Would you like to add a snippet file?',
-			default: true
+			default: false
 		},
 		snippetB: {
 			type: 'confirm',
 			name: 'snippetB',
 			message: 'Would you like to add another snippet file?',
-			default: true
+			default: false
 		},
 		snippet: {
 			type: 'input',
@@ -65,7 +65,7 @@ var inquirer = require('inquirer'),
 			type: 'confirm',
 			name: 'another',
 			message: 'Would you like to add another page?',
-			default: false
+			default: true
 		},
 	};
 
