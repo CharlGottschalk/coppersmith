@@ -29,7 +29,22 @@ require('../lib/handlebars.js');
 
 helper.log.dark('CopperSmith: Build Started...');
 
+function checkBuildPath() {
+	var compare = path.join(cwd, config.sourcePath);
+	var current = path.join(cwd, '');
+	if (!config.sourcePath) {
+		return false;
+	}
+	if (current === compare) {
+		return false;
+	}
+	return true;
+}
+
 function loadCollections(cb) {
+	if (!checkBuildPath() ) {
+		sourcePath = path.join(cwd, 'build', 'pages')
+	}
 	var dirs = fs.readdirSync(sourcePath).filter(function(file) {
 		return fs.statSync(path.join(sourcePath, file)).isDirectory() && !file.startsWith('_');
 	});
