@@ -14,7 +14,7 @@ Using simple commands, you can quickly scaffold your site leaving you to simply 
 
 Once built, the site can be hosted anywhere static HTML content is supported, like [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). It's perfect for shared hosting and systems where you don't have account privileges.
 
-View a [demo here](http://charlgottschalk.github.io/coppersmith)
+Read [documentation here](https://charlgottschalk.github.io/coppersmith/docs/)
 
 ---
 
@@ -74,7 +74,7 @@ Templating is supported and allows you to easily change the layout and styling w
 
 Simply run `copper theme` in your terminal and CopperSmith will setup a templates folder for you to create your own themes.
 
-Read the [templating docs](http://charlgottschalk.co.za/projects/coppersmith/docs/master/templates-setup) for more info.
+Read the [templating docs](https://charlgottschalk.github.io/coppersmith/docs/templates/setup/) for more info.
 
 ## Getting Started
 
@@ -145,9 +145,9 @@ Setup a theme folder for a custom template.
 
 ---
 
-View the [project page](http://charlgottschalk.co.za/projects/coppersmith) for [documentation](http://charlgottschalk.co.za/projects/coppersmith/docs).
+Read [documentation here](https://charlgottschalk.github.io/coppersmith/docs/).
 
-If you would like to contribute to the project, please read [contributing](http://charlgottschalk.co.za/projects/coppersmith/docs/contributing).
+If you would like to contribute to the project, please read [contributing](https://charlgottschalk.github.io/coppersmith/docs/contributing/).
 
 ---
 
