@@ -1,6 +1,6 @@
 # CopperSmith
 #### A simple static site builder using markdown
-![semver 1.2.3](https://img.shields.io/badge/semver-1.2.3-green.svg)
+![release](https://img.shields.io/github/release/charlgottschalk/coppersmith.svg) ![npm](https://img.shields.io/npm/v/coppersmith.svg) ![downloads](https://img.shields.io/npm/dt/coppersmith.svg)
 
 ---
 
