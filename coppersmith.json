@@ -5,7 +5,7 @@
   "buildPath": "./",
   "base": "https://charlgottschalk.github.io/coppersmith",
   "template": {
-    "path": "",
+    "path": "docs/templates",
     "theme": "default",
     "skin": "blue-light"
   },
