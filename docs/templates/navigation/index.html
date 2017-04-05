@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CopperSmith : Home</title>
+        <title>CopperSmith : Navigation</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -168,37 +168,99 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/github/release/charlgottschalk/coppersmith.svg" alt="release"> <img src="https://img.shields.io/npm/v/coppersmith.svg" alt="npm"> <img src="https://img.shields.io/npm/dt/coppersmith.svg" alt="downloads"></p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p><strong>This very site was built using CopperSmith</strong></p>
-<hr>
-<p>The structure of a site is laid out to be easy to maintain and looks like the following:</p>
-<pre><code>- [sourcePath]/pages/
-    - _snippets
-    - getting-started/
-        - _snippets/
-        - intro.md
-    - root/
-        - _snippets/
-        - welcome.md
-    - index.md
-</code></pre><p>Apart from the home page (<code>[sourcePath]/pages/index.md</code>), all other pages are contained in folders / collections. The <code>root</code> collection will contain the root pages i.e. <strong>domain.com/page</strong>. Any other collections will contain the pages for sub-pages i.e. <strong>domain.com/collection/page</strong>.</p>
-<p>CopperSmith applies a custom permalink pattern to files, and renames them so that they’re nested properly for static sites (converting <code>getting-started/intro.md</code> into <code>getting-started/intro/index.html</code>)</p>
-<p>So when the site is rendered, the structure will look like the following:</p>
-<pre><code>- [buildPath]/
-    - getting-started/
-        - intro/
-            - index.html
-    - welcome/
-        - index.html
-    - index.html
-</code></pre><p><a href="/approvejs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+                            <h1 id="navigation">Navigation</h1>
+<p>CopperSmith applies a custom permalink pattern to files, and renames them so that they’re nested properly for static sites (converting <code>getting-started/intro.md</code> into <code>getting-started/intro/index.html</code>).</p>
+<p>To render navigation for your site, the following code snippet must be used.</p>
+<pre><code class="lang-html">{{#each collections.root}}
+    &lt;-- Add links here --&gt;
+    &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+        {{title}}
+    &lt;/a&gt;
+{{/each}}
+{{#each collections}}
+{{#notroot @key}}
+    &lt;-- Add links here --&gt;
+    &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+        {{title}}
+    &lt;/a&gt;
+{{/notroot}}
+{{/each}}
+</code></pre>
+<p>The structure of the HTML is entirely up to you.</p>
+<h6 id="note-">NOTE:</h6>
+<p>The above code does not include the “home” page url. This is so you can include it yourself where ever you want in your navigation. Simply use the <code>{{config &#39;base&#39; }}</code> helper to insert the correct url. See the <a href="#example">example</a> below.</p>
+<h4 id="explanation">Explanation</h4>
+<p>The following code snippet will loop through the <code>root</code> collection’s pages.</p>
+<pre><code class="lang-html">{{#each collections.root}}
+    &lt;-- Add links here --&gt;
+    &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+        {{title}}
+    &lt;/a&gt;
+{{/each}}
+</code></pre>
+<p>The following code snippet will loop through all the collections. We use the helper <code>{{#notroot @key}}</code> to make sure we do not include the <code>root</code> collection’s pages.</p>
+<pre><code class="lang-html">{{#each collections}}
+{{#notroot @key}}
+    &lt;-- Add links here --&gt;
+    &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+        {{title}}
+    &lt;/a&gt;
+{{/notroot}}
+{{/each}}
+</code></pre>
+<p>Each item will contain a <code>title</code> and <code>path</code> property. <code>title</code> contains the name / title (from the <a href="/coppersmith/docs/page-settings/">front-matter</a> <code>title</code> property) of the page, and <code>path</code> contains the relative url to the page.</p>
+<h6 id="note-">NOTE:</h6>
+<p>Remember to prefix your page urls in links with <code>{{config &#39;base&#39;}}/</code> to render the urls correctly.</p>
+<p><a name="example"></a></p>
+<h4 id="example">Example</h4>
+<p>Rendering a Twitter Bootstrap <a href="http://getbootstrap.com/components/#navbar">Navbar</a>.</p>
+<pre><code class="lang-html">&lt;nav class=&quot;navbar navbar-inverse navbar-fixed-top&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle collapsed&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbar&quot; aria-expanded=&quot;false&quot; aria-controls=&quot;navbar&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;a class=&quot;navbar-brand&quot; href=&quot;{{config &#39;base&#39;}}&quot;&gt;
+                {{config &#39;name&#39;}}
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;navbar&quot; class=&quot;collapse navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;li&gt;&lt;a href=&quot;{{config &#39;base&#39;}}&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+                {{#each collections.root}}
+                    &lt;li&gt;
+                        &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+                            {{title}}
+                        &lt;/a&gt;
+                    &lt;/li&gt;
+                {{/each}}
+                {{#each collections}}
+                {{#notroot @key}}
+                &lt;li class=&quot;dropdown&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; role=&quot;button&quot; aria-haspopup=&quot;true&quot; aria-expanded=&quot;false&quot;&gt;
+                        {{titleCase @key}} 
+                        &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+                    &lt;/a&gt;
+                    &lt;ul class=&quot;dropdown-menu&quot;&gt;
+                        {{#each this}}
+                        &lt;li&gt;
+                            &lt;a href=&quot;{{config &#39;base&#39;}}/{{path}}&quot;&gt;
+                                {{title}}
+                            &lt;/a&gt;
+                        &lt;/li&gt;
+                        {{/each}}
+                    &lt;/ul&gt;
+                &lt;/li&gt;
+                {{/notroot}}
+                {{/each}}
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+</code></pre>
 
 
                         </div>

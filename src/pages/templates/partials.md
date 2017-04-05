@@ -25,5 +25,5 @@ To include and render partials inside other partials or the `master.html` layout
 The following code snippet will look for and include the `[sourcePath]/templates/[theme]/partials/nav.html` partial.
 
 ```
-{{> nav}}
+\{{> nav}}
 ```

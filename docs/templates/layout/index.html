@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CopperSmith : Home</title>
+        <title>CopperSmith : Layout</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -168,37 +168,10 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/github/release/charlgottschalk/coppersmith.svg" alt="release"> <img src="https://img.shields.io/npm/v/coppersmith.svg" alt="npm"> <img src="https://img.shields.io/npm/dt/coppersmith.svg" alt="downloads"></p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p><strong>This very site was built using CopperSmith</strong></p>
-<hr>
-<p>The structure of a site is laid out to be easy to maintain and looks like the following:</p>
-<pre><code>- [sourcePath]/pages/
-    - _snippets
-    - getting-started/
-        - _snippets/
-        - intro.md
-    - root/
-        - _snippets/
-        - welcome.md
-    - index.md
-</code></pre><p>Apart from the home page (<code>[sourcePath]/pages/index.md</code>), all other pages are contained in folders / collections. The <code>root</code> collection will contain the root pages i.e. <strong>domain.com/page</strong>. Any other collections will contain the pages for sub-pages i.e. <strong>domain.com/collection/page</strong>.</p>
-<p>CopperSmith applies a custom permalink pattern to files, and renames them so that they’re nested properly for static sites (converting <code>getting-started/intro.md</code> into <code>getting-started/intro/index.html</code>)</p>
-<p>So when the site is rendered, the structure will look like the following:</p>
-<pre><code>- [buildPath]/
-    - getting-started/
-        - intro/
-            - index.html
-    - welcome/
-        - index.html
-    - index.html
-</code></pre><p><a href="/approvejs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+                            <h1 id="templates-layout">Templates - Layout</h1>
+<p>CopperSmith requires a <code>master.html</code> layout which is used to render each page during <code>copper build</code>.</p>
+<p>A default <code>[sourcePath]/templates/[theme]/layouts/master.html</code> file will be created with the <code>copper theme</code> command. You should customize this file to your needs however you see fit.</p>
+<p>By default, this file is used to include the neccessary <a href="/coppersmith/docs/templates/partials/">partials</a> for generating your pages.</p>
 
 
                         </div>

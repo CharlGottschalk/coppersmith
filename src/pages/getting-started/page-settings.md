@@ -32,4 +32,4 @@ sort: 0
 - `date`: The date on which the page was created.
 - `version`: The current version of the page.
 - `draft`: Whether this page is a draft. If `true` then the page will be ignored during generation.
-- `sort`: The index of the page for sorting in the navigation.
+- `sort`: The zero-based index of the page for sorting in the navigation.

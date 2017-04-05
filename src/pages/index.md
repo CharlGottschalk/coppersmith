@@ -23,7 +23,7 @@ Using simple commands, you can quickly scaffold your site leaving you to simply 
 
 Once built, the site can be hosted anywhere static HTML content is supported, like [GitHub Pages](https://pages.github.com/) and [Netlify](https://www.netlify.com/). It's perfect for shared hosting and systems where you don't have account privileges.
 
-**This very site is built using CopperSmith**
+**This very site was built using CopperSmith**
 
 ---
 

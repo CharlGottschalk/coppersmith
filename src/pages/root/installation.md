@@ -24,4 +24,4 @@ or if you're using [Yarn](https://yarnpkg.com/)
 $ yarn global add coppersmith
 ```
 
-Once installed, you should run the [init](/coppersmith/commands/#init) command to set up your project.
+Once installed, you should run the [init](/coppersmith/docs/commands/#init) command to set up your project.

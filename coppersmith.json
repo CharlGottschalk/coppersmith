@@ -1,11 +1,11 @@
 {
   "name": "CopperSmith",
   "author": "Charl Gottschalk",
-  "sourcePath": "docs",
-  "buildPath": "./",
+  "sourcePath": "src",
+  "buildPath": "docs",
   "base": "https://charlgottschalk.github.io/coppersmith",
   "template": {
-    "path": "docs/templates",
+    "path": "src/templates",
     "theme": "default",
     "skin": "blue-light"
   },

@@ -31,9 +31,9 @@ Provides an extended conditional (if) helper.
 **Usage:**
 
 ```
-{{is 'left' 'operator' 'right'}}
+\{{is 'left' 'operator' 'right'}}
 _Do Something_
-{{/is}}
+\{{/is}}
 ```
 
 **Available Operators:**
@@ -50,9 +50,9 @@ _Do Something_
 ###### Example:
 
 ```html
-{{is 'this' '===' 'this'}}
+\{{is 'this' '===' 'this'}}
 <p>Yes it is</p>
-{{/is}}
+\{{/is}}
 ```
 
 ---
@@ -66,13 +66,13 @@ Returns a "Title Cased" version of the provided string.
 **Usage:**
 
 ```
-{{titleCase 'some text'}}
+\{{titleCase 'some text'}}
 ```
 
 ###### Example:
 
 ```html
-<p>{{titleCase 'some text'}}</p>
+<p>\{{titleCase 'some text'}}</p>
 ```
 
 will result in 
@@ -92,13 +92,13 @@ Used to return the correct url to an asset, relative to the assets folder, such 
 **Usage:**
 
 ```
-{{asset 'css/asset.css'}}
+\{{asset 'css/asset.css'}}
 ```
 
 ###### Example:
 
 ```html
-<link type="text/css" rel="stylesheet" href="{{asset 'css/app.css'}}">
+<link type="text/css" rel="stylesheet" href="\{{asset 'css/app.css'}}">
 ```
 
 ---
@@ -112,7 +112,7 @@ Used to insert the contents of a snippet file inside a page's markdown.
 **Usage:**
 
 ```
-{{{snippet 'example'}}}
+\{{{snippet 'example'}}}
 ```
 
 ###### Example:
@@ -122,7 +122,7 @@ Used to insert the contents of a snippet file inside a page's markdown.
 
 Example markdown text
 
-{{{snippet 'example'}}}
+\{{{snippet 'example'}}}
 
 ## Another Markdown Title
 ```
@@ -140,7 +140,7 @@ Returns the value of a property in the `coppersmith.json` file.
 **Usage:**
 
 ```
-{{config 'property.to.return'}}
+\{{config 'property.to.return'}}
 ```
 
 ###### Example:
@@ -160,7 +160,7 @@ Similar to `config`, but returns the value of a property in the `coppersmith.jso
 **Usage:**
 
 ```
-{{option 'property.to.return'}}
+\{{option 'property.to.return'}}
 ```
 
 ###### Example:
@@ -180,7 +180,7 @@ Returns the value of the `coppersmith.json` file `template.skin` property.
 **Usage:**
 
 ```
-{{skin}}
+\{{skin}}
 ```
 
 ###### Example:

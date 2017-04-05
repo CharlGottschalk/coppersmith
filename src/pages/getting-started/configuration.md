@@ -51,7 +51,7 @@ It looks like the following:
 - `name`: The name of your website.
 - `author`: The default author of the site.
 - `sourcePath`: The path relative to your project root where your site will be created.
-- `buildPath`: The path relative to your project root where your site will be generated to.
+- `buildPath`: The path relative to your project root where your site will be generated to. *Cannot be empty or the same as the project root. CopperSmith will automatically set to `build` if not specified.*
 - `base`: The base url of your site. CopperSmith uses this to correctly format navigation urls.
 - `template`: Template specific configuration.
     - `path`: The path relative to your project root where your template is stored.

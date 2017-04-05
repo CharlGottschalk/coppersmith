@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CopperSmith : Home</title>
+        <title>CopperSmith : Page Settings</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -168,37 +168,28 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/github/release/charlgottschalk/coppersmith.svg" alt="release"> <img src="https://img.shields.io/npm/v/coppersmith.svg" alt="npm"> <img src="https://img.shields.io/npm/dt/coppersmith.svg" alt="downloads"></p>
-<hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p><strong>This very site was built using CopperSmith</strong></p>
-<hr>
-<p>The structure of a site is laid out to be easy to maintain and looks like the following:</p>
-<pre><code>- [sourcePath]/pages/
-    - _snippets
-    - getting-started/
-        - _snippets/
-        - intro.md
-    - root/
-        - _snippets/
-        - welcome.md
-    - index.md
-</code></pre><p>Apart from the home page (<code>[sourcePath]/pages/index.md</code>), all other pages are contained in folders / collections. The <code>root</code> collection will contain the root pages i.e. <strong>domain.com/page</strong>. Any other collections will contain the pages for sub-pages i.e. <strong>domain.com/collection/page</strong>.</p>
-<p>CopperSmith applies a custom permalink pattern to files, and renames them so that they’re nested properly for static sites (converting <code>getting-started/intro.md</code> into <code>getting-started/intro/index.html</code>)</p>
-<p>So when the site is rendered, the structure will look like the following:</p>
-<pre><code>- [buildPath]/
-    - getting-started/
-        - intro/
-            - index.html
-    - welcome/
-        - index.html
-    - index.html
-</code></pre><p><a href="/approvejs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+                            <h1 id="page-settings">Page Settings</h1>
+<p>Each page (<code>\*.md</code>) contains <a href="http://assemble.io/docs/YAML-front-matter.html">front-matter</a>, a block of YAML at the beginning of the file that is used to configure settings for your pages.</p>
+<p>It looks like the following:</p>
+<pre><code class="lang-yaml">---
+title: Page Name
+collection: root
+author: Author Name (http://domain.com)
+date: dd/mm/yyyy
+version: 0.1.0
+draft: false
+sort: 0
+---
+</code></pre>
+<ul>
+<li><code>title</code>: The name of the page as it will appear in navigation and headings.</li>
+<li><code>collection</code>: The collection the page belongs to. Used by the permalink generator.</li>
+<li><code>author</code>: The original creator of the page, taken from <code>coppersmith.json [author]</code>.</li>
+<li><code>date</code>: The date on which the page was created.</li>
+<li><code>version</code>: The current version of the page.</li>
+<li><code>draft</code>: Whether this page is a draft. If <code>true</code> then the page will be ignored during generation.</li>
+<li><code>sort</code>: The zero-based index of the page for sorting in the navigation.</li>
+</ul>
 
 
                         </div>

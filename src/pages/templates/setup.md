@@ -41,10 +41,10 @@ The command will create the following directory structure:
             - scripts.html
 ```
 
-Use the `assets` folder to keep all your site assets such as images, fonts, styles etc. During `copper build` the entire assets folder will be copied to your build directory. More over at [assets](/coppersmith/templates/assets/)
+Use the `assets` folder to keep all your site assets such as images, fonts, styles etc. During `copper build` the entire assets folder will be copied to your build directory. More over at [assets](/coppersmith/docs/templates/assets/)
 
-Your theme **MUST** have a `[sourcePath]/templates/[theme]/layouts/master.html` file. CopperSmith uses this file to render each page of your site. More over at [layouts](/coppersmith/templates/layouts/)
+Your theme **MUST** have a `[sourcePath]/templates/[theme]/layouts/master.html` file. CopperSmith uses this file to render each page of your site. More over at [layouts](/coppersmith/docs/templates/layouts/)
 
-The `partials` directory is where you will keep your page "pieces" that will be included in the `master.html` layout. More over at [partials](/coppersmith/templates/partials/)
+The `partials` directory is where you will keep your page "pieces" that will be included in the `master.html` layout. More over at [partials](/coppersmith/docs/templates/partials/)
 
 _By default, the generated theme is setup to use [jQuery](https://jquery.com/), [Twitter Bootstrap](http://getbootstrap.com/) and [FontAwesome](http://fontawesome.io/) inside the `[sourcePath]/templates/[theme]/partials/head.html` and `[sourcePath]/templates/[theme]/partials/scripts.html` files._

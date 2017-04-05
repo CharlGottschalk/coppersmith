@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CopperSmith : Home</title>
+        <title>CopperSmith : Helpers</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link type="text/css" rel="stylesheet" href="/approvejs/assets/css/bootstrap.min.css">
     	<!-- Font Awesome -->
@@ -168,37 +168,104 @@
                     <div class="box box-solid">
                         <div class="box-body">
                             
-                            <h1 id="coppersmith">CopperSmith</h1>
-<h4 id="a-simple-static-site-builder-using-markdown">A simple static site builder using markdown</h4>
-<p><img src="https://img.shields.io/github/release/charlgottschalk/coppersmith.svg" alt="release"> <img src="https://img.shields.io/npm/v/coppersmith.svg" alt="npm"> <img src="https://img.shields.io/npm/dt/coppersmith.svg" alt="downloads"></p>
+                            <h1 id="helpers">Helpers</h1>
+<p>CopperSmith includes various <a href="http://handlebarsjs.com/">handlebars</a> helpers that can be used throughout your template.</p>
+<p><a href="#is">is</a>
+<a href="#titleCase">titleCase</a>
+<a href="#asset">asset</a>
+<a href="#snippet">snippet</a>
+<a href="#config">config</a>
+<a href="#option">option</a>
+<a href="#skin">skin</a></p>
 <hr>
-<h2 id="overview">Overview</h2>
-<p>CopperSmith is a very simple static site builder that uses markdown files, primarily built for myself to quickly roll out documentation (default theme).</p>
-<p>Using simple commands, you can quickly scaffold your site leaving you to simply edit the content of your pages.</p>
-<p>Once built, the site can be hosted anywhere static HTML content is supported, like <a href="https://pages.github.com/">GitHub Pages</a> and <a href="https://www.netlify.com/">Netlify</a>. It’s perfect for shared hosting and systems where you don’t have account privileges.</p>
-<p><strong>This very site was built using CopperSmith</strong></p>
+<p><a name="is"></a></p>
+<p><code>is</code></p>
+<p>Provides an extended conditional (if) helper.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{is &#39;left&#39; &#39;operator&#39; &#39;right&#39;}}
+_Do Something_
+{{/is}}
+</code></pre><p><strong>Available Operators:</strong></p>
+<ul>
+<li><code>&#39;==&#39;, &#39;===&#39;</code></li>
+<li><code>&#39;!=&#39;, &#39;!==&#39;</code></li>
+<li><code>&#39;&lt;&#39;</code></li>
+<li><code>&#39;&lt;=&#39;</code></li>
+<li><code>&#39;&gt;&#39;</code></li>
+<li><code>&#39;&gt;=&#39;</code></li>
+<li><code>&#39;&amp;&amp;&#39;</code></li>
+<li><code>&#39;||&#39;</code></li>
+</ul>
+<h6 id="example-">Example:</h6>
+<pre><code class="lang-html">{{is &#39;this&#39; &#39;===&#39; &#39;this&#39;}}
+&lt;p&gt;Yes it is&lt;/p&gt;
+{{/is}}
+</code></pre>
 <hr>
-<p>The structure of a site is laid out to be easy to maintain and looks like the following:</p>
-<pre><code>- [sourcePath]/pages/
-    - _snippets
-    - getting-started/
-        - _snippets/
-        - intro.md
-    - root/
-        - _snippets/
-        - welcome.md
-    - index.md
-</code></pre><p>Apart from the home page (<code>[sourcePath]/pages/index.md</code>), all other pages are contained in folders / collections. The <code>root</code> collection will contain the root pages i.e. <strong>domain.com/page</strong>. Any other collections will contain the pages for sub-pages i.e. <strong>domain.com/collection/page</strong>.</p>
-<p>CopperSmith applies a custom permalink pattern to files, and renames them so that they’re nested properly for static sites (converting <code>getting-started/intro.md</code> into <code>getting-started/intro/index.html</code>)</p>
-<p>So when the site is rendered, the structure will look like the following:</p>
-<pre><code>- [buildPath]/
-    - getting-started/
-        - intro/
-            - index.html
-    - welcome/
-        - index.html
-    - index.html
-</code></pre><p><a href="/approvejs/installation" class="btn btn-lg btn-info">Get Started</a></p>
+<p><a name="titleCase"></a></p>
+<p><code>titleCase</code></p>
+<p>Returns a “Title Cased” version of the provided string.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{titleCase &#39;some text&#39;}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code class="lang-html">&lt;p&gt;{{titleCase &#39;some text&#39;}}&lt;/p&gt;
+</code></pre>
+<p>will result in </p>
+<pre><code class="lang-html">&lt;p&gt;Some Text&lt;/p&gt;
+</code></pre>
+<hr>
+<p><a name="asset"></a></p>
+<p><code>asset</code></p>
+<p>Used to return the correct url to an asset, relative to the assets folder, such as a style sheet (<code>.css</code>).</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{asset &#39;css/asset.css&#39;}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code class="lang-html">&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;{{asset &#39;css/app.css&#39;}}&quot;&gt;
+</code></pre>
+<hr>
+<p><a name="snippet"></a></p>
+<p><code>snippet</code></p>
+<p>Used to insert the contents of a snippet file inside a page’s markdown.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{{snippet &#39;example&#39;}}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code>## Example Markdown Title
+
+Example markdown text
+
+{{{snippet &#39;example&#39;}}}
+
+## Another Markdown Title
+</code></pre><p>The above code will look for a snippet in the page’s collection <code>_snippets</code> folder called <code>example.html</code>. If it doesn’t find it, it will look for the snippet in the global <code>[sourcePath]/pages/_snippets</code> folder.</p>
+<hr>
+<p><a name="config"></a></p>
+<p><code>config</code></p>
+<p>Returns the value of a property in the <code>coppersmith.json</code> file.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{config &#39;property.to.return&#39;}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code class="lang-html">&lt;a class=&quot;navbar-brand&quot; href=&quot;{{config &#39;base&#39;}}&quot;&gt;{{config &#39;name&#39;}}&lt;/a&gt;
+</code></pre>
+<hr>
+<p><a name="option"></a></p>
+<p><code>option</code></p>
+<p>Similar to <code>config</code>, but returns the value of a property in the <code>coppersmith.json</code> file <code>options</code> property.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{option &#39;property.to.return&#39;}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code class="lang-html">Copyright © {{option &#39;copyright_year&#39;}} &lt;a href=&quot;{{option &#39;copyright_url&#39;}}&quot;&gt;{{option &#39;copyright_display&#39;}}&lt;/a&gt;.
+</code></pre>
+<hr>
+<p><a name="skin"></a></p>
+<p><code>skin</code></p>
+<p>Returns the value of the <code>coppersmith.json</code> file <code>template.skin</code> property.</p>
+<p><strong>Usage:</strong></p>
+<pre><code>{{skin}}
+</code></pre><h6 id="example-">Example:</h6>
+<pre><code class="lang-html">&lt;body class=&quot;{{skin}}&quot;&gt;
+...
+&lt;/body&gt;
+</code></pre>
 
 
                         </div>

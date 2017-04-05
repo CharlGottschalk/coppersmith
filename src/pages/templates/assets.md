@@ -22,24 +22,24 @@ When your site is generated (`copper build`), the entire `assets` directory and 
 
 ### Linking to assets
 
-Linking to your assets is simple using the CopperSmith [asset](/coppersmith/templates/helpers/#asset) helper. This helper will correctly format the url to include the asset into your view.
+Linking to your assets is simple using the CopperSmith [asset](/coppersmith/docs/templates/helpers/#asset) helper. This helper will correctly format the url to include the asset into your view.
 
 ##### Example
 
 Including a css file:
 
 ```html
-<link type="text/css" rel="stylesheet" href="{{asset 'css/app.css'}}">
+<link type="text/css" rel="stylesheet" href="\{{asset 'css/app.css'}}">
 ```
 
 Including a js file:
 
 ```html
-<script src="{{asset 'js/app.js'}}"></script>
+<script src="\{{asset 'js/app.js'}}"></script>
 ```
 
 Including an image:
 
 ```html
-<img src="{{asset 'img/some-image.jpg'}}" />
+<img src="\{{asset 'img/some-image.jpg'}}" />
 ```
