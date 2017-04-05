@@ -1,0 +1,27 @@
+{
+  "name": "CopperSmith",
+  "author": "Charl Gottschalk",
+  "sourcePath": "docs",
+  "buildPath": "./",
+  "base": "https://charlgottschalk.github.io/coppersmith",
+  "template": {
+    "path": "",
+    "theme": "default",
+    "skin": "blue-light"
+  },
+  "options": {
+    "copyright_year": "2017",
+    "copyright_url": "http://charlgottschalk.co.za",
+    "copyright_display": "Charl Gottschalk"
+  },
+  "publish": {
+    "to": "ftp",
+    "destination": "public_html/destination/folder",
+    "config": {
+      "host": "ftp.domain.com",
+      "port": 21,
+      "username": "username",
+      "password": "password"
+    }
+  }
+}
