@@ -3,7 +3,7 @@
   "author": "Charl Gottschalk",
   "sourcePath": "src",
   "buildPath": "docs",
-  "base": "https://charlgottschalk.github.io/coppersmith",
+  "base": "https://charlgottschalk.github.io/coppersmith/docs",
   "template": {
     "path": "src/templates",
     "theme": "default",
