@@ -84,3 +84,9 @@ handlebars.registerHelper('option', function (name) {
 handlebars.registerHelper('template', function (name) {
     return helper.deepValue(config.template, name);
 });
+
+handlebars.registerHelper('has', function (name) {
+    if (helper.deepValue(config, name)) {
+        return options.fn(this);
+    }
+});

@@ -38,11 +38,11 @@ var templates = [
 			type: 'input',
 			name: 'source',
 			message: 'Where would you like to keep your source files?',
-			default: 'docs'
+			default: 'src'
 		},
 		build: {
 			type: 'input',
-			name: 'build',
+			name: 'public',
 			message: 'Where would you like your generated files to go?',
 			default: 'build'
 		},
@@ -88,9 +88,10 @@ function askName() {
 		var args = {
 			name: answers.name,
 			author: defaultAuthor,
-			sourcePath: '',
-			buildPath: '',
+			sourcePath: 'src',
+			buildPath: 'public',
 			base: 'http://domain.com',
+			googleCode: '',
 			template: {
 				path: '',
 				theme: 'default',

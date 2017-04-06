@@ -1,3 +1,5 @@
 /node_modules
 /semantic
+/templates
+/src
 npm-debug.log
