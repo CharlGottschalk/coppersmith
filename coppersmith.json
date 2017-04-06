@@ -4,6 +4,7 @@
   "sourcePath": "src",
   "buildPath": "docs",
   "base": "https://charlgottschalk.github.io/coppersmith/docs",
+  "googleCode": "5454",
   "template": {
     "path": "src/templates",
     "theme": "default",

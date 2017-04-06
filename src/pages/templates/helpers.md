@@ -18,6 +18,7 @@ CopperSmith includes various [handlebars](http://handlebarsjs.com/) helpers that
 [snippet](#snippet)
 [config](#config)
 [option](#option)
+[has](#has)
 [skin](#skin)
 
 ---
@@ -31,7 +32,7 @@ Provides an extended conditional (if) helper.
 **Usage:**
 
 ```
-\{{is 'left' 'operator' 'right'}}
+\{{#is 'left' 'operator' 'right'}}
 _Do Something_
 \{{/is}}
 ```
@@ -50,7 +51,7 @@ _Do Something_
 ###### Example:
 
 ```html
-\{{is 'this' '===' 'this'}}
+\{{#is 'this' '===' 'this'}}
 <p>Yes it is</p>
 \{{/is}}
 ```
@@ -167,6 +168,38 @@ Similar to `config`, but returns the value of a property in the `coppersmith.jso
 
 ```html
 Copyright © \{{option 'copyright_year'}} <a href="\{{option 'copyright_url'}}">\{{option 'copyright_display'}}</a>.
+```
+
+---
+
+<a name="has"></a>
+
+`has`
+
+Checks whether a config property is set in  `coppersmith.json` file.
+
+**Usage:**
+
+```
+\{{#has 'googleCode'}}
+    _do something_
+\{{/has}}
+```
+
+###### Example:
+
+```html
+\{{#has 'googleCode'}}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', '\{{config 'googleCode'}}', 'auto');
+        ga('send', 'pageview');
+    </script>
+\{{/has}}
 ```
 
 ---
