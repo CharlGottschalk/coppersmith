@@ -176,7 +176,7 @@ Copyright © \{{option 'copyright_year'}} <a href="\{{option 'copyright_url'}}">
 
 `has`
 
-Checks whether a config property is set in  `coppersmith.json` file.
+Checks whether a config property is set in `coppersmith.json` file.
 
 **Usage:**
 
