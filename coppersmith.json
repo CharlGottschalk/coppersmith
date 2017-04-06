@@ -8,7 +8,7 @@
   "template": {
     "path": "src/templates",
     "theme": "default",
-    "skin": "blue-light"
+    "skin": "black"
   },
   "options": {
     "copyright_year": "2017",
