@@ -85,7 +85,7 @@ handlebars.registerHelper('template', function (name) {
     return helper.deepValue(config.template, name);
 });
 
-handlebars.registerHelper('has', function (name) {
+handlebars.registerHelper('has', function (name, options) {
     if (helper.deepValue(config, name)) {
         return options.fn(this);
     }
