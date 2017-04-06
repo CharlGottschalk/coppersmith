@@ -13,12 +13,19 @@ sort: 5
 CopperSmith includes various [handlebars](http://handlebarsjs.com/) helpers that can be used throughout your template.
 
 [is](#is)
+
 [titleCase](#titleCase)
+
 [asset](#asset)
+
 [snippet](#snippet)
+
 [config](#config)
+
 [option](#option)
+
 [has](#has)
+
 [skin](#skin)
 
 ---
@@ -181,7 +188,7 @@ Checks whether a config property is set in `coppersmith.json` file.
 **Usage:**
 
 ```
-\{{#has 'googleCode'}}
+\{{#has 'property.to.check'}}
     _do something_
 \{{/has}}
 ```

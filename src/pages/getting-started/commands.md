@@ -23,11 +23,17 @@ where [cmd] is a command / function to execute.
 Each command might present a list of questions to simplify the process.
 
 [init](#init)
+
 [page](#page)
+
 [snip](#snip)
+
 [theme](#theme)
+
 [build](#build)
+
 [publish](#publish)
+
 
 ---
 
