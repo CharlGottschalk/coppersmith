@@ -8,7 +8,7 @@ draft: false
 sort: 1
 ---
 
-# Templates - Layout
+# Layout
 
 CopperSmith requires a `master.html` layout which is used to render each page during `copper build`.
 
