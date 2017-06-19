@@ -41,7 +41,7 @@ var templates = [
 		},
 		build: {
 			type: 'input',
-			name: 'public',
+			name: 'build',
 			message: 'Where would you like your generated files to go?',
 			default: 'build'
 		},
