@@ -183,8 +183,6 @@ If you would like to contribute to the project, please read [contributing](https
 
 [pretty-error](https://www.npmjs.com/package/pretty-error) v2.0.0
 
-[slugify](https://www.npmjs.com/package/slugify) v1.0.2
-
 [url-join](https://www.npmjs.com/package/url-join) v1.1.0
 
 ## Credits
