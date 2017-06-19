@@ -4,7 +4,6 @@
 var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
-	slugify = require('slugify'),
 	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
@@ -95,7 +94,7 @@ function askTitle() {
 			author: author,
 			date: date,
 			draft: true,
-			slug: slugify(answers.title.toLowerCase()),
+			slug: helper.slugify(answers.title.toLowerCase()),
 			collection: 'root',
 			collectionExists: false,
 			snippets: [],
@@ -112,7 +111,7 @@ function chooseCollection(args) {
 		if (answers.collection === 'new') {
 			askCollection(args);
 		} else {
-			args.collection = slugify(answers.collection);
+			args.collection = helper.slugify(answers.collection);
 			args.collectionExists = false;
 			askDraft(args);
 		}
@@ -121,7 +120,7 @@ function chooseCollection(args) {
 
 function askCollection(args) {
 	inquirer.prompt(questions.newCollection).then(function(answers) {
-		args.collection = slugify(answers.newCollection.toLowerCase());
+		args.collection = helper.slugify(answers.newCollection.toLowerCase());
 		args.collectionExists = false;
 		collections.push(answers.newCollection);
 		askDraft(args);
@@ -164,7 +163,7 @@ function askSnippetB(args) {
 
 function askSnippetName(args) {
 	inquirer.prompt(questions.snippet).then(function(answers) {
-		args.snippets.push(slugify(answers.name));
+		args.snippets.push(helper.slugify(answers.name));
 		askSnippetB(args);
 	});
 }

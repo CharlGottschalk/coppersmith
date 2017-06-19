@@ -4,7 +4,6 @@
 var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
-	slugify = require('slugify'),
 	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
@@ -51,7 +50,7 @@ function askTitle() {
 	helper.log.info('Please answer the following questions:');
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
-			slug: slugify(answers.title),
+			slug: helper.slugify(answers.title),
 			collection: 'global',
 			page: '',
 			paths: {}
@@ -62,7 +61,7 @@ function askTitle() {
 
 function chooseCollection(args) {
 	inquirer.prompt(questions.collection).then(function(answers) {
-		args.collection = slugify(answers.collection);
+		args.collection = helper.slugify(answers.collection);
 		save(args);
 	});
 }

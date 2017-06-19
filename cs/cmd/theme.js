@@ -4,7 +4,6 @@
 var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
-	slugify = require('slugify'),
 	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	config = require(path.join(cwd, 'coppersmith.json')),
@@ -22,7 +21,7 @@ function askTitle() {
 	inquirer.prompt(questions.title).then(function(answers) {
 		var args = {
 			title: helper.titleCase(answers.title),
-			slug: slugify(answers.title),
+			slug: helper.slugify(answers.title),
 			paths: {}
 		};
 		save(args);
