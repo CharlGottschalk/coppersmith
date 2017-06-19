@@ -5,6 +5,10 @@ var fs = require('fs'),
 	path = require('path'),
     chalk = require('chalk');
 
+exports.slugify = function(value) {
+    return value.replace(/\s/g, '-').toLowerCase().trim();
+};
+
 exports.getStub = function(stub) {
     var content = fs.readFileSync(path.join(__dirname,'../stubs',stub), 'utf8');
     return content;

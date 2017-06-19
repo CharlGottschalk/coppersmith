@@ -4,7 +4,6 @@
 var inquirer = require('inquirer'),
 	fs = require('fs'),
 	path = require('path'),
-	slugify = require('slugify'),
 	helper = require('../lib/helper.js'),
 	cwd = process.cwd(),
 	defaultAuthor = '',
@@ -119,14 +118,14 @@ function askName() {
 
 function askSource(args) {
 	inquirer.prompt(questions.source).then(function(answers) {
-		args.sourcePath = slugify(answers.source);
+		args.sourcePath = helper.slugify(answers.source);
 		askBuild(args);
 	});
 }
 
 function askBuild(args) {
 	inquirer.prompt(questions.build).then(function(answers) {
-		args.buildPath = slugify(answers.build);
+		args.buildPath = helper.slugify(answers.build);
 		askAuthor(args);
 	});
 }
